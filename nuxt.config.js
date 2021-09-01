@@ -1,12 +1,12 @@
 import colors from 'vuetify/es5/util/colors'
+import routes from './routes'
 
 export default {
-  // Global page headers: https://go.nuxtjs.dev/config-head
   head: {
-    titleTemplate: '%s - marcus-tcc',
-    title: 'marcus-tcc',
+    titleTemplate: '%s - Xenon',
+    title: 'Xenon',
     htmlAttrs: {
-      lang: 'en'
+      lang: 'pt-BR'
     },
     meta: [
       { charset: 'utf-8' },
@@ -19,37 +19,59 @@ export default {
     ]
   },
 
-  // Global CSS: https://go.nuxtjs.dev/config-css
   css: [
+    './assets/custom.scss'
   ],
 
-  // Plugins to run before rendering page: https://go.nuxtjs.dev/config-plugins
   plugins: [
   ],
 
-  // Auto import components: https://go.nuxtjs.dev/config-components
   components: true,
 
-  // Modules for dev and build (recommended): https://go.nuxtjs.dev/config-modules
   buildModules: [
-    // https://go.nuxtjs.dev/vuetify
     '@nuxtjs/vuetify',
+    ['@nuxtjs/dotenv', { filename: `.env` }],
   ],
 
-  // Modules: https://go.nuxtjs.dev/config-modules
   modules: [
+    '@nuxtjs/axios',
+    '@nuxtjs/auth-next',
+    '@nuxtjs/i18n'
   ],
 
-  // Vuetify module configuration: https://go.nuxtjs.dev/config-vuetify
+  i18n: {
+    defaultLocale: 'pt-BR',
+    fallbackLocale: 'pt-BR',
+    strategy: 'no_prefix',
+    langDir: 'lang/',
+    lazy: false,
+    detectBrowserLanguage: {
+      useCookie: true,
+      alwaysRedirect: false,
+      cookieKey: 'app_current_lang',
+      onlyOnRoot: true
+    },
+    locales: [
+      { code: 'pt-BR', iso: 'pt-BR', file: 'pt-BR.ts' },
+      { code: 'en', iso: 'en-US', file: 'en-US.ts' },
+    ]
+  },
+
+  axios: {
+    baseUrl: process.env.NUXT_ENV_API_URL || 'https://localhost:8080/api',
+    proxyHeaders: false,
+    credentials: false
+  },
+
   vuetify: {
-    customVariables: ['~/assets/variables.scss'],
+    customVariables: ['/assets/variables.scss'],
+    treeShake: true,
     theme: {
-      dark: true,
       themes: {
-        dark: {
-          primary: colors.blue.darken2,
-          accent: colors.grey.darken3,
-          secondary: colors.amber.darken3,
+        light: {
+          primary: '#fbb800',
+          accent: '#b2b2b2',
+          secondary: '#706f6f',
           info: colors.teal.lighten1,
           warning: colors.amber.base,
           error: colors.deepOrange.accent4,
@@ -59,7 +81,27 @@ export default {
     }
   },
 
-  // Build Configuration: https://go.nuxtjs.dev/config-build
+  router: {
+    extendRoutes (nuxtRoutes, resolve) {
+      nuxtRoutes.splice(
+        0,
+        nuxtRoutes.length,
+        ...routes.map((route) => {
+          return {
+            ...route,
+            component: resolve(__dirname, route.component)
+          }
+        })
+      )
+    }
+  },
+
+  auth: {
+    strategies: {
+      local: { scheme: 'local' }
+    }
+  },
+
   build: {
   }
 }
