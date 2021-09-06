@@ -17,13 +17,13 @@
 </template>
 
 <script>
-import App from '/components/App'
-import ButtonDefault from '/components/shared/form/ButtonDefault'
+import App from '~/components/App'
+import ButtonDefault from '~/components/shared/form/ButtonDefault'
 
 export default App.extend({
-  name: "RequestSent",
+  name: 'RequestSent',
 
-  components: { ButtonDefault },
+  components: { ButtonDefault }
 
 })
 </script>

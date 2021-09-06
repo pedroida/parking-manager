@@ -9,14 +9,22 @@
         <slot />
       </v-container>
     </main>
+
+    <footer class="footer primary py-2">
+      Feito com
+      <v-icon color="red">
+        mdi-heart
+      </v-icon>
+      pelos alunos para a UTFPR
+    </footer>
   </div>
 </template>
 
 <script>
-import App from '/components/App'
+import App from '~/components/App'
 
 export default App.extend({
-  name: 'UnauthenticatedContainer',
+  name: 'UnauthenticatedContainer'
 })
 </script>
 <style lang="scss" scoped>
@@ -32,7 +40,7 @@ export default App.extend({
   }
 }
 
-.unauthenticated-container {
+.unauthenticated-container, .footer {
   min-width: 100% !important;
 }
 
@@ -42,7 +50,9 @@ footer {
   max-width: 900px;
 }
 footer {
+  min-height: 30px;
   text-align: center;
+  box-shadow: 0 -2px 12px 2px #808080a6;
 }
 
 ::v-deep  {

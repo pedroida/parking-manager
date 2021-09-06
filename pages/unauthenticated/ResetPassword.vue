@@ -1,6 +1,5 @@
 <template>
   <unauthenticated-container>
-
     <card class="mx-auto">
       <v-row class="ma-0 h-100">
         <v-col class="pa-0 text-center">
@@ -11,28 +10,27 @@
         </v-col>
       </v-row>
     </card>
-
   </unauthenticated-container>
 </template>
 
 <script>
-import App from '/components/App'
-import UnauthenticatedContainer from "~/components/layouts/unauthenticated/Container";
-import Card from '/components/shared/card'
-import EmailDefault from '/components/shared/form/EmailDefault'
-import PasswordDefault from '/components/shared/form/PasswordDefault'
-import ButtonDefault from '/components/shared/form/ButtonDefault'
-import FormRequest from '/components/reset-password/Form'
-import RequestSent from '/components/reset-password/RequestSent'
+import App from '~/components/App'
+import UnauthenticatedContainer from '~/components/layouts/unauthenticated/Container'
+import Card from '~/components/shared/card'
+import EmailDefault from '~/components/shared/form/EmailDefault'
+import PasswordDefault from '~/components/shared/form/PasswordDefault'
+import ButtonDefault from '~/components/shared/form/ButtonDefault'
+import FormRequest from '~/components/reset-password/Form'
+import RequestSent from '~/components/reset-password/RequestSent'
 
 export default App.extend({
-  name: "ResetPassword",
+  name: 'ResetPassword',
 
   components: { UnauthenticatedContainer, Card, EmailDefault, PasswordDefault, ButtonDefault, FormRequest, RequestSent },
 
   layout: 'unauthenticated',
 
-  data() {
+  data () {
     return {
       email: '',
       password: '',
@@ -42,7 +40,7 @@ export default App.extend({
   },
 
   computed: {
-    validEmailMessage() {
+    validEmailMessage () {
       if (!this.validEmail) {
         return ['Insira um email válido']
       }
@@ -50,7 +48,7 @@ export default App.extend({
   },
 
   methods: {
-    validateEmail(isValid) {
+    validateEmail (isValid) {
       this.validEmail = isValid
     }
   }

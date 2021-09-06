@@ -360,5 +360,9 @@ export default {
     unsupportedUserAgent: 'A versão do seu navegador não é compatível. Aqui está o que funciona:',
     enableCameraAndMicrophone: 'Por favor, habilite as permissões de câmera e microfone',
     notEnoughRecordTime: 'Seu vídeo não cumpre o requisitos minimo de 1 min de duração, grave um novo vídeo'
+  },
+
+  userTypes: {
+    STUDENTS: 'Estudante'
   }
 }

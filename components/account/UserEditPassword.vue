@@ -1,0 +1,79 @@
+<template>
+  <modal-default :open="editPasswordModal" hide-submit header-title="Editar senha" @close="editPasswordModal = false">
+    <template #activator>
+      <button-default
+        :block="false"
+        label="Alterar senha"
+        class="mt-3 float-md-right"
+        @click="editPasswordModal = !editPasswordModal"
+      />
+    </template>
+
+    <template #body>
+      <password-default v-model="actualPassword" label="Senha atual" />
+      <password-default v-model="password" label="Senha" />
+      <password-default v-model="confirmPassword" label="Confirmar Senha" :error="confirmPasswordError" />
+    </template>
+
+    <template #actions>
+      <button-default :disabled="confirmPasswordError" :loading="loading" label="Salvar" @click="update" />
+    </template>
+  </modal-default>
+</template>
+
+<script lang="ts">
+import { mapActions } from 'vuex'
+import App from '~/components/App'
+import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
+import PasswordDefault from '~/components/shared/form/PasswordDefault.vue'
+import ModalDefault from '~/components/shared/modal.vue'
+
+export default App.extend({
+  name: 'UserEditPassword',
+
+  components: { ModalDefault, ButtonDefault, PasswordDefault },
+
+  data () {
+    return {
+      actualPassword: '',
+      password: '',
+      confirmPassword: '',
+      editPasswordModal: false,
+      loading: false
+    }
+  },
+
+  computed: {
+    validPassword () {
+      return (this.actualPassword && this.password && this.confirmPassword) &&
+        this.password === this.confirmPassword
+    },
+
+    confirmPasswordError () {
+      if (this.password !== this.confirmPassword) {
+        return ['A confirmação de senha não confere']
+      }
+    }
+  },
+
+  methods: {
+    ...mapActions('user', ['updatePassword']),
+    update () {
+      if (!this.validPassword) {
+        return false
+      }
+      this.loading = true
+      this.updatePassword({ actualPassword: this.actualPassword, password: this.password, confirmPassword: this.confirmPassword })
+        .then(() => {
+          this.editPasswordModal = false
+        }).catch((error: any) => {
+          this.pushAlertError(error.response?.data?.error || 'Houve um problema ao atualizar a senha')
+        }).finally(() => {
+          this.loading = false
+        })
+    }
+  }
+})
+</script>
+<style scoped>
+</style>

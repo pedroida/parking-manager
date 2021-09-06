@@ -3,8 +3,8 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import App from '/components/App'
+import { mapGetters } from 'vuex'
+import App from '~/components/App'
 
 export default App.extend({
   name: 'Unauthenticated',
@@ -12,8 +12,7 @@ export default App.extend({
   layout: 'unauthenticated',
 
   computed: {
-    // ...mapGetters('session', ['isLogged']),
-    // ...mapGetters(['supportError', 'currentLanguage']),
+    ...mapGetters('user', ['authorization']),
 
     routeBaseName () {
       return this.getRouteBaseName()
@@ -21,34 +20,21 @@ export default App.extend({
   },
 
   watch: {
-    routeBaseName (value) {
-      // const allowedPages = ['cultural-fit', 'profile']
-      // if (!allowedPages.includes(value)) {
-      //   this.$router.push(this.localePath('profile'))
-      // }
-    },
-
-    isLogged (value) {
+    authorization (value) {
       if (!value) {
         this.goTo('index')
       }
-    },
-
-    currentLanguage () {
-      this.reloadEnums()
     }
   },
 
   mounted () {
-    // if (this.getRouteBaseName() === 'app-index') {
-    //   this.goTo('dashboard')
-    // }
-  },
+    if (this.authorization) {
+      return this.goTo('dashboard')
+    }
 
-  methods: {
-    ...mapActions('enum', {
-      reloadEnums: 'reload'
-    })
+    if (this.routeBaseName === 'index' && this.$route.path === '/') {
+      return this.goTo('login')
+    }
   }
 })
 </script>

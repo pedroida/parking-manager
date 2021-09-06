@@ -1,10 +1,10 @@
 <template>
-
+  <h1>akosp</h1>
 </template>
 
 <script>
 export default {
-  name: "index"
+  name: 'Users'
 }
 </script>
 

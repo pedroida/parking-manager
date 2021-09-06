@@ -1,8 +1,9 @@
 <template>
   <v-btn
     rounded
-    color="primary"
+    :color="color"
     :block="block"
+    :small="small"
     :x-large="xLarge"
     class="text-transform-none"
     :disabled="disabled"
@@ -14,7 +15,7 @@
 </template>
 
 <script>
-import App from '/components/App'
+import App from '~/components/App'
 
 export default App.extend({
   name: 'ButtonDefault',
@@ -40,13 +41,25 @@ export default App.extend({
     xLarge: {
       type: Boolean,
       required: false,
-      default: true
+      default: false
+    },
+
+    small: {
+      type: Boolean,
+      required: false,
+      default: false
     },
 
     block: {
       type: Boolean,
       required: false,
       default: true
+    },
+
+    color: {
+      type: String,
+      required: false,
+      default: () => 'primary'
     }
   }
 })

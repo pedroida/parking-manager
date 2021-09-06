@@ -1,6 +1,7 @@
 <template>
   <v-text-field
     v-model="content"
+    dense
     :append-icon="show ? 'mdi-eye' : 'mdi-eye-off'"
     :label="$t(label)"
     :placeholder="$t(label)"
@@ -14,7 +15,7 @@
 </template>
 
 <script>
-import App from '/components/App'
+import App from '~/components/App'
 
 export default App.extend({
   name: 'PasswordDefault',

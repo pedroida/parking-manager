@@ -24,19 +24,21 @@ export default {
   ],
 
   plugins: [
+    '~/plugins/v-mask.js'
   ],
 
   components: true,
 
   buildModules: [
     '@nuxtjs/vuetify',
-    ['@nuxtjs/dotenv', { filename: `.env` }],
+    '@nuxt/typescript-build',
+    ['@nuxtjs/dotenv', { filename: '.env' }]
   ],
 
   modules: [
     '@nuxtjs/axios',
-    '@nuxtjs/auth-next',
-    '@nuxtjs/i18n'
+    '@nuxtjs/i18n',
+    'cookie-universal-nuxt'
   ],
 
   i18n: {
@@ -53,7 +55,7 @@ export default {
     },
     locales: [
       { code: 'pt-BR', iso: 'pt-BR', file: 'pt-BR.ts' },
-      { code: 'en', iso: 'en-US', file: 'en-US.ts' },
+      { code: 'en', iso: 'en-US', file: 'en-US.ts' }
     ]
   },
 
@@ -96,12 +98,20 @@ export default {
     }
   },
 
-  auth: {
-    strategies: {
-      local: { scheme: 'local' }
-    }
-  },
-
   build: {
+    publicPath: '/static/',
+    babel: { babelrc: true },
+
+    extend (config, ctx) {
+      config.devtool = 'inline-source-map'
+      if (ctx.isDev && ctx.isClient) {
+        config.module.rules.push({
+          enforce: 'pre',
+          test: /\.(js|ts|vue)$/,
+          loader: 'eslint-loader',
+          exclude: /(node_modules)/
+        })
+      }
+    }
   }
 }

@@ -1,6 +1,7 @@
 <template>
   <v-text-field
     v-model="content"
+    dense
     :label="rawLabel ? rawLabel : $t(label)"
     :error-messages="error"
     :maxlength="maxlength"
@@ -13,7 +14,7 @@
 </template>
 
 <script>
-import App from '/components/App'
+import App from '~/components/App'
 
 export default App.extend({
   name: 'InputDefault',

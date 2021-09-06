@@ -6,7 +6,7 @@
 </template>
 
 <script>
-import Alerts from '/components/layouts/Alerts'
+import Alerts from '~/components/layouts/Alerts'
 export default {
   components: {
     Alerts

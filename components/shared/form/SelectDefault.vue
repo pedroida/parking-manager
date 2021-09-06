@@ -14,7 +14,7 @@
 </template>
 
 <script>
-import App from '/components/App'
+import App from '~/components/App'
 
 export default App.extend({
   name: 'SelectDefault',

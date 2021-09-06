@@ -1,6 +1,5 @@
 <template>
   <unauthenticated-container>
-
     <v-row class="ma-0">
       <v-col class="pa-0">
         <card class="h-100">
@@ -12,11 +11,11 @@
             Para acessar entre com suas credencias
           </h3>
 
-          <email-default v-model="email" label="E-mail" @is-valid="validateEmail" :error="validEmailMessage" />
+          <email-default v-model="email" label="E-mail" :error="validEmailMessage" @is-valid="validateEmail" />
           <password-default v-model="password" label="Senha" />
 
           <div class="d-flex justify-space-between align-center">
-            <button-default :block="false" :x-large="false" label="Acessar" />
+            <button-default :loading="loading" :block="false" :x-large="false" label="Acessar" @click="submit" />
             <router-link :to="localePath('reset-password')" class="info--text text--darken-2">
               Esqueceu sua senha?
             </router-link>
@@ -42,35 +41,36 @@
         </card>
       </v-col>
     </v-row>
-
   </unauthenticated-container>
 </template>
 
 <script>
-import App from '/components/App'
-import UnauthenticatedContainer from "~/components/layouts/unauthenticated/Container";
-import Card from '/components/shared/card'
-import EmailDefault from '/components/shared/form/EmailDefault'
-import PasswordDefault from '/components/shared/form/PasswordDefault'
-import ButtonDefault from '/components/shared/form/ButtonDefault'
+import { mapActions } from 'vuex'
+import App from '~/components/App'
+import UnauthenticatedContainer from '~/components/layouts/unauthenticated/Container'
+import Card from '~/components/shared/card'
+import EmailDefault from '~/components/shared/form/EmailDefault'
+import PasswordDefault from '~/components/shared/form/PasswordDefault'
+import ButtonDefault from '~/components/shared/form/ButtonDefault'
 
 export default App.extend({
-  name: "Login",
+  name: 'Login',
 
   components: { UnauthenticatedContainer, Card, EmailDefault, PasswordDefault, ButtonDefault },
 
   layout: 'unauthenticated',
 
-  data() {
+  data () {
     return {
       email: '',
       password: '',
       validEmail: true,
+      loading: false
     }
   },
 
   computed: {
-    validEmailMessage() {
+    validEmailMessage () {
       if (!this.validEmail) {
         return ['Insira um email válido']
       }
@@ -78,7 +78,22 @@ export default App.extend({
   },
 
   methods: {
-    validateEmail(isValid) {
+    ...mapActions('user', ['login']),
+
+    submit () {
+      this.loading = true
+      this.login({ email: this.email, password: this.password })
+        .then((response) => {
+          if (response) {
+            return this.goTo('dashboard')
+          }
+          this.pushAlertError('Login e/ou senha inválidos')
+        }).finally(() => {
+          this.loading = false
+        })
+    },
+
+    validateEmail (isValid) {
       this.validEmail = isValid
     }
   }

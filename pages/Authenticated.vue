@@ -3,15 +3,14 @@
 </template>
 
 <script>
-import { mapActions, mapGetters } from 'vuex'
-import App from '/components/App'
+import { mapGetters } from 'vuex'
+import App from '~/components/App'
 
 export default App.extend({
   name: 'Authenticated',
 
   computed: {
-    ...mapGetters('session', ['isLogged']),
-    ...mapGetters(['supportError', 'currentLanguage']),
+    ...mapGetters('user', ['authorization']),
 
     routeBaseName () {
       return this.getRouteBaseName()
@@ -19,37 +18,21 @@ export default App.extend({
   },
 
   watch: {
-    routeBaseName (value) {
-      const allowedPages = ['cultural-fit', 'profile']
-      if (!allowedPages.includes(value)) {
-        this.$router.push(this.localePath('profile'))
-      }
-    },
-
-    isLogged (value) {
+    authorization (value) {
       if (!value) {
-        this.goTo('index')
+        this.goTo('login')
       }
-    },
-
-    currentLanguage () {
-      this.reloadEnums()
     }
   },
 
   mounted () {
-    if (this.supportError) {
-      this.goTo('support-error')
+    if (!this.authorization) {
+      return this.goTo('login')
     }
-    if (this.getRouteBaseName() === 'app-index') {
-      this.goTo('dashboard')
+    if (this.getRouteBaseName() === 'app-index' && this.$route.path === this.getRouteBaseName()) {
+      console.log('paoskd')
+      return this.goTo('dashboard')
     }
-  },
-
-  methods: {
-    ...mapActions('enum', {
-      reloadEnums: 'reload'
-    })
   }
 })
 </script>

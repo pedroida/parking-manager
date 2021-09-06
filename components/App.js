@@ -1,11 +1,11 @@
-import { mapGetters } from 'vuex'
 import Vue from 'vue'
+import { mapGetters } from 'vuex'
 
 export default Vue.extend({
   name: 'App',
 
   computed: {
-    ...mapGetters('account', ['account']),
+    ...mapGetters('user', ['currentUser']),
 
     isDesktop () {
       return this.$vuetify.breakpoint.mdAndUp

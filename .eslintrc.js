@@ -4,7 +4,27 @@ module.exports = {
     browser: true,
     node: true
   },
+  parserOptions: {
+    parser: '@typescript-eslint/parser'
+  },
   extends: [
-    "plugin:nuxt/recommended"
-  ]
+    '@nuxtjs/eslint-config-typescript',
+    'plugin:vue/recommended',
+    'eslint:recommended'
+  ],
+  plugins: [
+    'vue'
+  ],
+  overrides: [
+    {
+      files: [
+        '**/*.spec.js',
+        '**/*.test.js'
+      ],
+      env: {
+        jest: true
+      }
+    }
+  ],
+  rules: {}
 }
