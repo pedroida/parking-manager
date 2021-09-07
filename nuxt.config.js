@@ -6,7 +6,7 @@ export default {
     titleTemplate: '%s - Xenon',
     title: 'Xenon',
     htmlAttrs: {
-      lang: 'pt-BR'
+      lang: 'pt'
     },
     meta: [
       { charset: 'utf-8' },
@@ -42,8 +42,8 @@ export default {
   ],
 
   i18n: {
-    defaultLocale: 'pt-BR',
-    fallbackLocale: 'pt-BR',
+    defaultLocale: 'pt',
+    fallbackLocale: 'pt',
     strategy: 'no_prefix',
     langDir: 'lang/',
     lazy: false,
@@ -54,7 +54,7 @@ export default {
       onlyOnRoot: true
     },
     locales: [
-      { code: 'pt-BR', iso: 'pt-BR', file: 'pt-BR.ts' },
+      { code: 'pt', iso: 'pt-BR', file: 'pt-BR.ts' },
       { code: 'en', iso: 'en-US', file: 'en-US.ts' }
     ]
   },

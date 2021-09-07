@@ -34,6 +34,23 @@ export default {
     this.$cookies.remove('authorization')
   },
 
+  async addCarToCurrentUser ({ commit }, car) {
+    await commit('ADD_CAR_TO_CURRENT_USER', car)
+  },
+
+  async removeCarFromCurrentUser ({ commit }, car) {
+    await commit('REMOVE_CAR_FROM_CURRENT_USER', car)
+  },
+
+  async getCurrentUser ({ dispatch, commit }) {
+    const service = await dispatch('service', UserService, { root: true })
+    return await service.me(routes.me)
+      .then((response) => {
+        commit('SET_CURRENT_USER', response.data)
+        return response.data
+      })
+  },
+
   async requestPassword ({ dispatch }, payload) {
     const service = await dispatch('service', AuthenticationService, { root: true })
     return await service.requestPassword(routes.requestPassword, payload)
@@ -63,6 +80,40 @@ export default {
     return await service.updatePassword(routes.updatePassword, payload)
       .then(() => {
         dispatch('logout')
+      })
+  },
+
+  async profileNewCar ({ dispatch }, payload) {
+    const service = await dispatch('service', UserService, { root: true })
+    return await service.profileNewCar(routes.profileNewCar, payload)
+      .then((response) => {
+        dispatch('addCarToCurrentUser', response.data)
+      })
+  },
+
+  async profileRemoveCar ({ dispatch }, car) {
+    const service = await dispatch('service', UserService, { root: true })
+    return await service.profileRemoveCar(routes.profileRemoveCar, car)
+      .then(() => {
+        dispatch('removeCarFromCurrentUser', car.plateCar)
+      })
+  },
+
+  async profileDisableAccount ({ dispatch }) {
+    const service = await dispatch('service', UserService, { root: true })
+    return await service.profileDisableAccount(routes.profileDisableAccount)
+      .then((response) => {
+        dispatch('logout')
+        return response
+      })
+  },
+
+  async profileUpdateAvatar ({ dispatch, commit }, avatar) {
+    const service = await dispatch('service', UserService, { root: true })
+    return await service.updateAvatar(routes.updateAvatar, avatar)
+      .then((response) => {
+        commit('SET_CURRENT_USER', response.data)
+        return response
       })
   }
 }

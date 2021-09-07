@@ -14,11 +14,11 @@
   </div>
 </template>
 
-<script>
+<script lang="ts">
 import { mapActions } from 'vuex'
 import App from '~/components/App'
-import EmailDefault from '~/components/shared/form/EmailDefault'
-import ButtonDefault from '~/components/shared/form/ButtonDefault'
+import EmailDefault from '~/components/shared/form/EmailDefault.vue'
+import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 
 export default App.extend({
   name: 'Form',
@@ -46,15 +46,16 @@ export default App.extend({
 
     submit () {
       if (this.validEmail) {
-        this.requestPassword(this.email).then((response) => {
-          console.log(response)
+        this.requestPassword(this.email).then((response: any) => {
+          this.pushAlertSuccess(response?.data?.result)
+          this.$emit('request-sent')
         }).catch(() => {
           this.$emit('request-sent')
         })
       }
     },
 
-    validateEmail (isValid) {
+    validateEmail (isValid: boolean) {
       this.validEmail = isValid
     }
   }

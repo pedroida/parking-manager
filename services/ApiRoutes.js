@@ -8,7 +8,7 @@ class ApiRoutes {
   }
 
   get requestPassword () {
-    return `${this.baseUrl}/request-new-pass`
+    return `${this.baseUrl}/request-renew-pass`
   }
 
   get requestRegister () {
@@ -19,12 +19,32 @@ class ApiRoutes {
     return `${this.baseUrl}/activate-registry`
   }
 
+  get me () {
+    return `${this.baseUrl}/profile/me`
+  }
+
   get updateName () {
     return `${this.baseUrl}/profile/change-name`
   }
 
   get updatePassword () {
     return `${this.baseUrl}/profile/change-password`
+  }
+
+  get profileNewCar () {
+    return `${this.baseUrl}/profile/include-new-car`
+  }
+
+  get profileRemoveCar () {
+    return `${this.baseUrl}/profile/remove-car`
+  }
+
+  get profileDisableAccount () {
+    return `${this.baseUrl}/profile/disable-account`
+  }
+
+  get updateAvatar () {
+    return `${this.baseUrl}/profile/avatar`
   }
 }
 

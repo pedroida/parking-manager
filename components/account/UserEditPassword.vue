@@ -16,7 +16,7 @@
     </template>
 
     <template #actions>
-      <button-default :disabled="confirmPasswordError" :loading="loading" label="Salvar" @click="update" />
+      <button-default :disabled="!validPassword" :loading="loading" label="Salvar" @click="update" />
     </template>
   </modal-default>
 </template>
@@ -66,8 +66,9 @@ export default App.extend({
       this.updatePassword({ actualPassword: this.actualPassword, password: this.password, confirmPassword: this.confirmPassword })
         .then(() => {
           this.editPasswordModal = false
+          this.pushAlertSuccess('Senha alterada com sucesso. Por favor, realize o login novamente!')
         }).catch((error: any) => {
-          this.pushAlertError(error.response?.data?.error || 'Houve um problema ao atualizar a senha')
+          this.pushAlertError(error.response?.data?.message || 'Houve um problema ao atualizar a senha')
         }).finally(() => {
           this.loading = false
         })

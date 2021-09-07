@@ -9,8 +9,11 @@
         </h3>
         <h3>{{ $t(`userTypes.${currentUser.type}`) }}</h3>
         <h3>E-mail: <span>{{ currentUser.email }}</span></h3>
-        <h2 :class="currentUser.authorisedAccess ? 'success--text text--darken-2' : 'error--text'">
+        <h2 v-if="currentUser.authorisedAccess" class="success--text text--darken-2">
           Acesso autorizado
+        </h2>
+        <h2 v-else class="error--text">
+          Acesso negado
         </h2>
       </v-col>
       <v-col md="4" sm="12">

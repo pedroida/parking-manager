@@ -8,7 +8,7 @@ export default class Authentication {
   }
 
   async requestPassword (url, payload) {
-    return await this.httpClient.post(url, payload)
+    return await this.httpClient.post(url, { email: payload })
   }
 
   async register (url, payload) {

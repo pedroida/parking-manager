@@ -55,6 +55,7 @@
     </v-app-bar>
     <v-main>
       <v-container class="h-100">
+        <alerts />
         <Nuxt />
       </v-container>
     </v-main>
@@ -76,8 +77,11 @@
 <script>
 import { mapActions } from 'vuex'
 import App from '~/components/App'
+import Alerts from '~/components/layouts/Alerts'
 
 export default App.extend({
+
+  components: { Alerts },
   data () {
     return {
       clipped: false,

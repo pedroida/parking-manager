@@ -30,7 +30,7 @@ export const actions = {
     commit('REMOVE_ALERT', payload)
   },
 
-  service ({ getters, dispatch }, Service) {
+  service ({ getters }, Service) {
     const axiosInstance = axios.create()
 
     // axiosInstance.interceptors.request.use(function (config) {
@@ -50,17 +50,15 @@ export const actions = {
 
     const authorization = getters['user/authorization']
     if (authorization) {
-      axiosInstance.defaults.headers.common.Authorization = authorization
+      axiosInstance.defaults.headers.common.Authorization = 'Bearer ' + authorization
     }
 
-    let currentLanguage = getters.currentLanguage
-
-    if (currentLanguage === 'pt-br') {
-      currentLanguage = 'pt-BR'
-      dispatch('setCurrentLanguage', currentLanguage)
+    const currentUser = getters['user/currentUser']
+    if (currentUser) {
+      axiosInstance.defaults.headers.ROLE = currentUser.roles[0]
     }
 
-    axiosInstance.defaults.headers['Content-Language'] = currentLanguage
+    axiosInstance.defaults.headers['Content-Language'] = this.$cookies.get('app_current_lang') || 'pt'
 
     return new Service(axiosInstance)
   },

@@ -4,7 +4,7 @@
       <v-col md="3" sm="12">
         <user-avatar />
 
-        <button-default color="error" :block="false" label="Desativar conta" class="mt-3 deactivate" />
+        <disable-account />
       </v-col>
       <v-col md="9" sm="12">
         <user-data class="mb-5" />
@@ -16,17 +16,27 @@
 </template>
 
 <script lang="ts">
+import { mapActions } from 'vuex'
 import App from '~/components/App'
 import AuthenticatedContainer from '~/components/layouts/authenticated/Container.vue'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import UserAvatar from '~/components/account/UserAvatar.vue'
 import UserData from '~/components/account/UserData.vue'
 import UserCars from '~/components/account/UserCars.vue'
+import DisableAccount from '~/components/shared/account/Disable.vue'
 
 export default App.extend({
   name: 'Account',
 
-  components: { AuthenticatedContainer, ButtonDefault, UserData, UserCars, UserAvatar }
+  components: { DisableAccount, AuthenticatedContainer, ButtonDefault, UserData, UserCars, UserAvatar },
+
+  created () {
+    this.getCurrentUser()
+  },
+
+  methods: {
+    ...mapActions('user', ['getCurrentUser'])
+  }
 })
 </script>
 
@@ -35,8 +45,4 @@ export default App.extend({
   min-height: 60vh;
 }
 
-.deactivate {
-  position: absolute;
-  bottom: 1em;
-}
 </style>

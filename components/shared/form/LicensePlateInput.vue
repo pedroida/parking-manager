@@ -18,7 +18,7 @@
 import App from '~/components/App'
 
 export default App.extend({
-  name: 'plateCarInput',
+  name: 'LicensePlateInput',
 
   props: {
     label: {
