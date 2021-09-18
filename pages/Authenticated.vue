@@ -30,7 +30,6 @@ export default App.extend({
       return this.goTo('login')
     }
     if (this.getRouteBaseName() === 'app-index' && this.$route.path === this.getRouteBaseName()) {
-      console.log('paoskd')
       return this.goTo('dashboard')
     }
   }

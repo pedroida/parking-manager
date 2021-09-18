@@ -9,11 +9,13 @@
         @click="show = !show"
       >
         <div>
-          <v-icon v-if="icon" class="mr-2">
-            {{ icon }}
-          </v-icon>
+          <slot name="header">
+            <v-icon v-if="icon" class="mr-2">
+              {{ icon }}
+            </v-icon>
 
-          {{ title }}
+            {{ title }}
+          </slot>
         </div>
 
         <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>

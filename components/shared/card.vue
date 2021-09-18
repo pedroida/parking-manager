@@ -1,6 +1,6 @@
 <template>
-  <v-card class="mb-2 pa-5">
-    <v-card-title class="card-title text-center d-block">
+  <v-card class="mb-2 pa-5" :color="color">
+    <v-card-title v-if="!hideTitle" class="card-title text-center d-block">
       <slot name="title" />
     </v-card-title>
     <v-card-text :class="{ 'height-inherit': heightInherit }">
@@ -17,6 +17,18 @@ export default App.extend({
 
   props: {
     heightInherit: {
+      type: Boolean,
+      required: false,
+      default: () => false
+    },
+
+    color: {
+      type: String,
+      required: false,
+      default: () => 'white'
+    },
+
+    hideTitle: {
       type: Boolean,
       required: false,
       default: () => false

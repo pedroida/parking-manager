@@ -42,8 +42,8 @@ export default {
   ],
 
   i18n: {
-    defaultLocale: 'pt',
-    fallbackLocale: 'pt',
+    defaultLocale: 'pt-BR',
+    fallbackLocale: 'pt-BR',
     strategy: 'no_prefix',
     langDir: 'lang/',
     lazy: false,
@@ -54,7 +54,7 @@ export default {
       onlyOnRoot: true
     },
     locales: [
-      { code: 'pt', iso: 'pt-BR', file: 'pt-BR.ts' },
+      { code: 'pt-BR', iso: 'pt-BR', file: 'pt-BR.ts' },
       { code: 'en', iso: 'en-US', file: 'en-US.ts' }
     ]
   },
@@ -72,7 +72,7 @@ export default {
       themes: {
         light: {
           primary: '#fbb800',
-          accent: '#b2b2b2',
+          accent: '#d8d8d8',
           secondary: '#706f6f',
           info: colors.teal.lighten1,
           warning: colors.amber.base,

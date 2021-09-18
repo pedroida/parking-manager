@@ -10,6 +10,9 @@
     :loading="loading"
     @click="$emit('click')"
   >
+    <v-icon v-if="icon" :class="{ 'mr-2': label }" :small="iconSmall">
+      {{ icon }}
+    </v-icon>
     {{ $t(label) }}
   </v-btn>
 </template>
@@ -21,9 +24,16 @@ export default App.extend({
   name: 'ButtonDefault',
 
   props: {
+    icon: {
+      type: String,
+      required: false,
+      default: () => null
+    },
+
     label: {
       type: String,
-      required: true
+      required: false,
+      default: () => ''
     },
 
     disabled: {
@@ -45,6 +55,12 @@ export default App.extend({
     },
 
     small: {
+      type: Boolean,
+      required: false,
+      default: false
+    },
+
+    iconSmall: {
       type: Boolean,
       required: false,
       default: false

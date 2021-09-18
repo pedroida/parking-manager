@@ -90,6 +90,7 @@ export default App.extend({
         .then(() => {
           this.carModal = false
           this.pushAlertSuccess('Veículo adicionado com sucesso!')
+          this.$emit('car-added')
         }).catch((error: any) => {
           this.pushAlertError(error.response?.data?.message || 'Houve um problema ao adicionar o veículo')
         }).finally(() => {

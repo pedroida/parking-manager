@@ -1,5 +1,5 @@
 <template>
-  <authenticated-container page-title="Sua conta" page-subtitle="Informações da sua conta">
+  <authenticated-container v-if="currentUser" page-title="Sua conta" page-subtitle="Informações da sua conta">
     <v-row class="account">
       <v-col md="3" sm="12">
         <user-avatar />

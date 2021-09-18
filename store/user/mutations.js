@@ -5,8 +5,15 @@ export default {
   SET_AUTHORIZATION: (state, token) => {
     state.authorization = token
   },
+  SET_CURRENT_USER_NAME: (state, name) => {
+    state.currentUser.name = name
+  },
   SET_CURRENT_USER: (state, user) => {
-    if (!user.cars) {
+    if (typeof user === 'string') {
+      user = JSON.parse(user)
+    }
+
+    if (user && !user.cars) {
       user.cars = []
     }
     state.currentUser = user
@@ -16,7 +23,7 @@ export default {
   },
   REMOVE_CAR_FROM_CURRENT_USER: (state, car) => {
     const carIndex = state.currentUser.cars.findIndex(userCar => userCar.plateCar === car.plateCar)
-    state.currentUser.cars = state.currentUser.cars.splice(carIndex, 1)
+    state.currentUser.cars.splice(carIndex, 1)
   },
   REMOVE_AUTHORIZATION: (state) => {
     state.authorization = null

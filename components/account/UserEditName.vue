@@ -45,10 +45,11 @@ export default App.extend({
     update () {
       this.loading = true
       this.updateName(this.name)
-        .then(() => {
+        .then((response: any) => {
           this.editNameModal = false
+          this.pushAlertSuccess(response.result)
         }).catch((error: any) => {
-          this.pushAlertError(error.response?.data?.error || 'Houve um problema ao atualizar o nome')
+          this.pushAlertError(error.response?.data?.message || 'Houve um problema ao atualizar o nome')
         }).finally(() => {
           this.loading = false
         })

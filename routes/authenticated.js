@@ -16,7 +16,7 @@ export default [
   },
   {
     path: 'estacoes',
-    name: 'stations',
-    component: 'pages/authenticated/Stations.vue'
+    name: 'workstations',
+    component: 'pages/authenticated/Workstations.vue'
   }
 ]

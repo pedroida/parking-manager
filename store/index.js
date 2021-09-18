@@ -55,7 +55,8 @@ export const actions = {
 
     const currentUser = getters['user/currentUser']
     if (currentUser) {
-      axiosInstance.defaults.headers.ROLE = currentUser.roles[0]
+      const roles = [...currentUser.roles]
+      axiosInstance.defaults.headers.ROLE = roles.reverse()[0].name
     }
 
     axiosInstance.defaults.headers['Content-Language'] = this.$cookies.get('app_current_lang') || 'pt'

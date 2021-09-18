@@ -2,7 +2,7 @@
   <collapse-card :show-content="false" title="Veículos cadastrados" icon="mdi-car">
     <v-row>
       <v-col cols="12">
-        <car-form v-if="hasMaxCars" v-model="newCar" label="Adicionar veículo" />
+        <car-form v-if="hasMaxCars" v-model="newCar" label="Adicionar veículo" @car-added="carAdded" />
       </v-col>
       <v-col v-if="currentUser.cars.length" cols="12">
         <div v-for="(car, index) in currentUser.cars" :key="index" class="cars-container mb-2">
@@ -43,13 +43,19 @@ export default App.extend({
 
   computed: {
     hasMaxCars (): boolean {
-      return this.currentUser.cars.length <= 5
+      return this.currentUser.cars.length < 5
     }
   },
 
   data () {
     return {
       newCar: CarFactory()
+    }
+  },
+
+  methods: {
+    carAdded () {
+      this.newCar = CarFactory()
     }
   }
 })

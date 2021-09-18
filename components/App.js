@@ -13,6 +13,26 @@ export default Vue.extend({
 
     isMobile () {
       return !this.isDesktop
+    },
+
+    internalCurrentUser () {
+      return this.isAdmin || this.isOperator
+    },
+
+    isAdmin () {
+      if (!this.currentUser) {
+        return false
+      }
+
+      return !!this.currentUser.roles.find(role => role.id === 3)
+    },
+
+    isOperator () {
+      if (!this.currentUser) {
+        return false
+      }
+
+      return !!this.currentUser.roles.find(role => role.id === 2)
     }
   },
 

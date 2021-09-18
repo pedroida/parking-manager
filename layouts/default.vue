@@ -17,20 +17,24 @@
         </v-list-item>
 
         <v-divider />
-        <v-list-item
-          v-for="(item, i) in items"
-          :key="i"
-          :to="item.to"
-          router
-          exact
-        >
-          <v-list-item-action>
-            <v-icon>{{ item.icon }}</v-icon>
-          </v-list-item-action>
-          <v-list-item-content>
-            <v-list-item-title v-text="item.title" />
-          </v-list-item-content>
-        </v-list-item>
+        <client-only>
+          <template v-for="(item, i) in items">
+            <v-list-item
+              v-if="item.show"
+              :key="i"
+              :to="item.to"
+              router
+              exact
+            >
+              <v-list-item-action>
+                <v-icon>{{ item.icon }}</v-icon>
+              </v-list-item-action>
+              <v-list-item-content>
+                <v-list-item-title v-text="item.title" />
+              </v-list-item-content>
+            </v-list-item>
+          </template>
+        </client-only>
       </v-list>
 
       <template #append>
@@ -82,34 +86,44 @@ import Alerts from '~/components/layouts/Alerts'
 export default App.extend({
 
   components: { Alerts },
-  data () {
-    return {
-      clipped: false,
-      drawer: true,
-      fixed: false,
-      items: [
+
+  computed: {
+    items () {
+      return [
         {
           icon: 'mdi-home',
           title: 'Home',
           to: this.localePath('dashboard'),
-          active: true
+          active: true,
+          show: true
         },
         {
           icon: 'mdi-camera-wireless',
           title: 'Estações',
-          to: this.localePath('stations')
+          to: this.localePath('workstations'),
+          show: this.internalCurrentUser
         },
         {
           icon: 'mdi-account',
           title: 'Usuários',
-          to: this.localePath('users')
+          to: this.localePath('users'),
+          show: this.isAdmin
         },
         {
           icon: 'mdi-card-account-details',
           title: 'Conta',
-          to: this.localePath('account')
+          to: this.localePath('account'),
+          show: true
         }
       ]
+    }
+  },
+
+  data () {
+    return {
+      clipped: false,
+      drawer: true,
+      fixed: false
     }
   },
 

@@ -3,7 +3,7 @@
     <input-default v-model="user.name" label="Nome" :error="getErrorMessage('name')" />
     <student-email-default v-model="user.email" label="E-mail" :error="getErrorMessage('email')" @is-valid="validateEmail" />
 
-    <v-row>
+    <v-row class="mt-3">
       <v-col cols="12" md="6" sm="12" class="pb-0 pb-md-3">
         <input-default v-model="user.cars[0].modelCar" label="Modelo do veículo" :error="getErrorMessage('modelCar')" />
       </v-col>

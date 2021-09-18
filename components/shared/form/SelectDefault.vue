@@ -1,6 +1,7 @@
 <template>
   <v-select
     v-model="selected"
+    dense
     :items="items"
     :item-value="itemValue"
     :item-text="itemText"
@@ -9,8 +10,16 @@
     :label="rawLabel ? rawLabel : $t(label)"
     :placeholder="placeholder ? $t(placeholder) : (rawLabel ? rawLabel : $t(label))"
     :disabled="disabled"
+    background-color="white"
+    :hide-details="hideDetails"
     outlined
-  />
+  >
+    <template #no-data>
+      <small class="pl-3">
+        Nenhum item encontrado
+      </small>
+    </template>
+  </v-select>
 </template>
 
 <script>
@@ -20,6 +29,11 @@ export default App.extend({
   name: 'SelectDefault',
 
   props: {
+    hideDetails: {
+      type: [String, Boolean],
+      required: false,
+      default: () => false
+    },
     label: {
       type: String,
       required: false,

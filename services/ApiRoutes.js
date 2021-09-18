@@ -46,6 +46,19 @@ class ApiRoutes {
   get updateAvatar () {
     return `${this.baseUrl}/profile/avatar`
   }
+
+  // workstations
+  get getWorkstations () {
+    return `${this.baseUrl}/workstations`
+  }
+
+  handleWorkstation (id) {
+    return `${this.baseUrl}/workstations/${id}`
+  }
+
+  get createWorkstation () {
+    return `${this.baseUrl}/workstations`
+  }
 }
 
 const apiRoutes = new ApiRoutes()

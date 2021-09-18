@@ -1,5 +1,5 @@
-import AuthenticationService from '@@/services/Authentication'
-import UserService from '@@/services/User'
+import { AuthenticationService } from '@@/services'
+import { UserService } from '@@/services'
 import routes from '@@/services/ApiRoutes'
 
 export default {
@@ -70,8 +70,8 @@ export default {
     const service = await dispatch('service', UserService, { root: true })
     return await service.updateName(routes.updateName, name)
       .then((response) => {
-        commit('SET_CURRENT_USER_NAME', response.data.name)
-        return response.data.name
+        commit('SET_CURRENT_USER_NAME', name)
+        return response.data
       })
   },
 

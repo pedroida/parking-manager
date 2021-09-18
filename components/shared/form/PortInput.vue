@@ -1,7 +1,7 @@
 <template>
   <v-text-field
     v-model="content"
-    v-mask="currentMask"
+    v-mask="mask"
     dense
     :label="rawLabel ? rawLabel : $t(label)"
     :error-messages="error"
@@ -10,6 +10,7 @@
     :disabled="disabled"
     :placeholder="placeholder ? $t(placeholder) : (rawLabel ? rawLabel : $t(label))"
     outlined
+    :hide-details="hideDetails"
     background-color="white"
     @keydown.enter="$emit('enterkey')"
   />
@@ -19,9 +20,14 @@
 import App from '~/components/App'
 
 export default App.extend({
-  name: 'LicensePlateInput',
+  name: 'PortInput',
 
   props: {
+    hideDetails: {
+      type: [String, Boolean],
+      required: false,
+      default: () => false
+    },
     label: {
       type: String,
       required: false,
@@ -64,9 +70,6 @@ export default App.extend({
   },
 
   computed: {
-    currentMask () {
-      return ['AAA-#N##']
-    },
     content: {
       get () {
         return this.value
@@ -75,6 +78,18 @@ export default App.extend({
       set (value) {
         this.$emit('input', value)
       }
+    }
+  },
+
+  watch: {
+    content () {
+      this.mask = '#####'
+    }
+  },
+
+  data: () => {
+    return {
+      mask: '#####'
     }
   }
 })

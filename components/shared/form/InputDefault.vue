@@ -8,6 +8,8 @@
     :autocomplete="false"
     :disabled="disabled"
     :placeholder="placeholder ? $t(placeholder) : (rawLabel ? rawLabel : $t(label))"
+    background-color="white"
+    :hide-details="hideDetails"
     outlined
     @keydown.enter="$emit('enterkey')"
   />
@@ -20,6 +22,11 @@ export default App.extend({
   name: 'InputDefault',
 
   props: {
+    hideDetails: {
+      type: [String, Boolean],
+      required: false,
+      default: () => false
+    },
     label: {
       type: String,
       required: false,

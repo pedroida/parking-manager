@@ -1,7 +1,9 @@
-import { default as AuthenticationService } from './Authentication'
-import { default as UserService } from './User'
+import AuthenticationService from './Authentication'
+import UserService from './User'
+import WorkstationService from './Workstation'
 
-export default {
+export {
+  WorkstationService,
   AuthenticationService,
   UserService
 }

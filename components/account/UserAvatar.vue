@@ -1,7 +1,7 @@
 <template>
   <div class="text-center">
     <v-avatar size="100%" tile class="user-avatar" min-height="100px">
-      <img :src="currentUser.avatar" alt="avatar usuário" />
+      <img :src="currentUser.avatar" alt="avatar usuário">
     </v-avatar>
 
     <button-default :loading="loading" :block="false" label="Atualizar foto" class="mt-3" @click="upload" />

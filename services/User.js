@@ -7,6 +7,10 @@ export default class User {
     return await this.httpClient.get(url)
   }
 
+  async updateName (url, payload) {
+    return await this.httpClient.patch(url, { name: payload })
+  }
+
   async updatePassword (url, payload) {
     return await this.httpClient.post(url, payload)
   }
