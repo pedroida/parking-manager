@@ -80,7 +80,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['profileNewCar']),
+    ...mapActions('current-user', ['profileNewCar']),
     update (): boolean | void {
       if (!this.validCar) {
         return false

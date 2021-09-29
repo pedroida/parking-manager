@@ -78,7 +78,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['login']),
+    ...mapActions('current-user', ['login']),
 
     submit () {
       this.loading = true

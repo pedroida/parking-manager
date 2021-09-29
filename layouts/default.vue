@@ -128,7 +128,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['logout'])
+    ...mapActions('current-user', ['logout'])
   }
 })
 </script>

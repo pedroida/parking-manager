@@ -41,7 +41,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['updateName']),
+    ...mapActions('current-user', ['updateName']),
     update () {
       this.loading = true
       this.updateName(this.name)

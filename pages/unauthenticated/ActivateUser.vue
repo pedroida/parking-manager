@@ -59,7 +59,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['activateUser'])
+    ...mapActions('current-user', ['activateUser'])
   }
 })
 </script>

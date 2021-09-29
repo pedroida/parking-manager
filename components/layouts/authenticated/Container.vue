@@ -9,7 +9,7 @@
           {{ pageSubtitle }}
         </p>
       </v-col>
-      <v-col md="4" sm="12" cols="12" class="pt-md-0">
+      <v-col md="4" sm="12" cols="12" class="pt-md-0 d-flex align-self-center justify-md-end">
         <slot name="headerAppend" />
       </v-col>
     </v-row>
@@ -37,7 +37,7 @@ export default App.extend({
   },
 
   computed: {
-    ...mapGetters('user', ['currentUser'])
+    ...mapGetters('current-user', ['currentUser'])
   }
 })
 </script>

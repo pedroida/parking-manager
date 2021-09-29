@@ -3,37 +3,26 @@ export default class User {
     this.httpClient = httpClient
   }
 
-  async me (url) {
-    return await this.httpClient.get(url)
+  async getUsers (url, pagination) {
+    return await this.httpClient.get(url, {
+      params: {
+        size: pagination.size,
+        page: pagination.page,
+        sorted: pagination.sorted,
+        direction: pagination.direction
+      }
+    })
   }
 
-  async updateName (url, payload) {
-    return await this.httpClient.patch(url, { name: payload })
-  }
-
-  async updatePassword (url, payload) {
+  async createWorkstation (url, payload) {
     return await this.httpClient.post(url, payload)
   }
 
-  async profileNewCar (url, payload) {
-    return await this.httpClient.patch(url, payload)
+  async updateWorkstation (url, payload) {
+    return await this.httpClient.put(url, payload)
   }
 
-  async profileRemoveCar (url, car) {
-    return await this.httpClient.delete(url, { data: { plate: car.plateCar } })
-  }
-
-  async profileDisableAccount (url) {
+  async removeWorkstation (url) {
     return await this.httpClient.delete(url)
-  }
-
-  async updateAvatar (url, avatar) {
-    const formData = new FormData()
-    formData.append('file', avatar, 'file')
-    return await this.httpClient.post(url, formData, {
-      headers: {
-        'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
-      }
-    })
   }
 }

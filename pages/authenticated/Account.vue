@@ -35,7 +35,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['getCurrentUser'])
+    ...mapActions('current-user', ['getCurrentUser'])
   }
 })
 </script>

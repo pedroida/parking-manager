@@ -364,5 +364,13 @@ export default {
 
   userTypes: {
     STUDENTS: 'Estudante'
+  },
+
+  users: {
+    role: {
+      ROLE_DRIVER: 'Motorista',
+      ROLE_ADMIN: 'Administrador',
+      ROLE_OPERATOR: 'Operador'
+    }
   }
 }

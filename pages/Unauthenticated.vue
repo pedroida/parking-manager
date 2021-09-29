@@ -12,7 +12,7 @@ export default App.extend({
   layout: 'unauthenticated',
 
   computed: {
-    ...mapGetters('user', ['authorization']),
+    ...mapGetters('current-user', ['authorization']),
 
     routeBaseName () {
       return this.getRouteBaseName()

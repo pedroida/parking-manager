@@ -68,7 +68,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['register']),
+    ...mapActions('current-user', ['register']),
 
     submit () {
       this.errors = []

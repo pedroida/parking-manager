@@ -57,7 +57,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['updatePassword']),
+    ...mapActions('current-user', ['updatePassword']),
     update () {
       if (!this.validPassword) {
         return false

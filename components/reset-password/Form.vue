@@ -42,7 +42,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['requestPassword']),
+    ...mapActions('current-user', ['requestPassword']),
 
     submit () {
       if (this.validEmail) {

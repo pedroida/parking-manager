@@ -5,7 +5,7 @@ export default Vue.extend({
   name: 'App',
 
   computed: {
-    ...mapGetters('user', ['currentUser']),
+    ...mapGetters('current-user', ['currentUser']),
 
     isDesktop () {
       return this.$vuetify.breakpoint.mdAndUp

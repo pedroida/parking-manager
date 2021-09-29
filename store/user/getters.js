@@ -1,4 +1,5 @@
 export default {
-  authorization: state => state.authorization,
-  currentUser: state => state.currentUser
+  users: state => state.users,
+  user: state => state.user,
+  pagination: state => state.pagination
 }

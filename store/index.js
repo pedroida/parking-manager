@@ -48,28 +48,28 @@ export const actions = {
       return Promise.reject(error)
     })
 
-    const authorization = getters['user/authorization']
+    const authorization = getters['current-user/authorization']
     if (authorization) {
       axiosInstance.defaults.headers.common.Authorization = 'Bearer ' + authorization
     }
 
-    const currentUser = getters['user/currentUser']
+    const currentUser = getters['current-user/currentUser']
     if (currentUser) {
       const roles = [...currentUser.roles]
       axiosInstance.defaults.headers.ROLE = roles.reverse()[0].name
     }
 
-    axiosInstance.defaults.headers['Content-Language'] = this.$cookies.get('app_current_lang') || 'pt'
+    axiosInstance.defaults.headers['Content-Language'] = this.$cookies.get('app_current_lang') || 'en'
 
     return new Service(axiosInstance)
   },
 
   async nuxtServerInit ({ commit, dispatch }) {
     const authorizationCookie = this.$cookies.get('authorization')
-    await commit('user/SET_AUTHORIZATION', authorizationCookie)
+    await commit('current-user/SET_AUTHORIZATION', authorizationCookie)
 
     if (authorizationCookie) {
-      await dispatch('user/setCurrentUser', authorizationCookie)
+      await dispatch('current-user/setCurrentUser', authorizationCookie)
     }
   }
 }

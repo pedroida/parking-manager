@@ -4,16 +4,16 @@
     page-title="Estações"
     page-subtitle="Estações dos dispositivos de reconhecimento"
   >
-    <workstation-form v-if="isAdmin" />
-
-    <div class="w-100 d-flex justify-md-end">
+    <template #headerAppend>
       <button-default
+        v-if="isAdmin"
         :block="false"
         label="Nova estação"
         icon="mdi-plus"
         class="float-md-right" @click="newWorkstation"
       />
-    </div>
+    </template>
+    <workstation-form v-if="isAdmin" />
 
     <v-row class="mt-5" v-if="workstations.length">
       <v-col v-for="(workstation) in workstations" :key="`workstation-${workstation.id}`" cols="12" md="4">

@@ -34,7 +34,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['profileUpdateAvatar']),
+    ...mapActions('current-user', ['profileUpdateAvatar']),
 
     upload () {
       this.loading = true

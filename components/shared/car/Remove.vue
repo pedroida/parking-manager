@@ -70,7 +70,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['profileRemoveCar']),
+    ...mapActions('current-user', ['profileRemoveCar']),
     removeCar (): boolean | void {
       if (!this.validCar) {
         return false

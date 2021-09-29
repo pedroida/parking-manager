@@ -59,6 +59,11 @@ class ApiRoutes {
   get createWorkstation () {
     return `${this.baseUrl}/workstations`
   }
+
+  // users
+  get getUsers () {
+    return `${this.baseUrl}/users/all`
+  }
 }
 
 const apiRoutes = new ApiRoutes()

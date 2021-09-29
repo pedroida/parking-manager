@@ -1,31 +1,31 @@
-export default {
-  REMOVE_ALERT: (state, payload) => {
-    state.alerts.splice(state.alerts.indexOf(payload), 1)
-  },
-  SET_AUTHORIZATION: (state, token) => {
-    state.authorization = token
-  },
-  SET_CURRENT_USER_NAME: (state, name) => {
-    state.currentUser.name = name
-  },
-  SET_CURRENT_USER: (state, user) => {
-    if (typeof user === 'string') {
-      user = JSON.parse(user)
-    }
+import { merge } from 'lodash'
 
-    if (user && !user.cars) {
-      user.cars = []
-    }
-    state.currentUser = user
+export default {
+  SET_PAGINATION: (state, pagination) => {
+    state.pagination = merge(state.pagination, pagination)
   },
-  ADD_CAR_TO_CURRENT_USER: (state, car) => {
-    state.currentUser.cars.unshift(car)
+  SET_USER: (state, user) => {
+    state.user = user
   },
-  REMOVE_CAR_FROM_CURRENT_USER: (state, car) => {
-    const carIndex = state.currentUser.cars.findIndex(userCar => userCar.plateCar === car.plateCar)
-    state.currentUser.cars.splice(carIndex, 1)
+  SET_USERS: (state, users) => {
+    state.users = users
   },
-  REMOVE_AUTHORIZATION: (state) => {
-    state.authorization = null
+  ADD_WORKSTATION: (state, workstation) => {
+    state.workstations.push(workstation)
+  },
+  SET_WORKSTATION_ON_LIST: (state, workstation) => {
+    state.workstations = state.workstations.map((currentWorkstation) => {
+      if (+currentWorkstation.id === +workstation.id) {
+        return workstation
+      }
+      return currentWorkstation
+    })
+  },
+  REMOVE_WORKSTATION_FROM_LIST: (state, workstation) => {
+    const index = state.workstations.findIndex((currentWorkstation) => {
+      return currentWorkstation.id === workstation.id
+    })
+
+    state.workstations.splice(index, 1)
   }
 }

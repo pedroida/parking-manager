@@ -59,7 +59,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['profileDisableAccount']),
+    ...mapActions('current-user', ['profileDisableAccount']),
     disable (): boolean | void {
       this.loading = true
       this.profileDisableAccount()
