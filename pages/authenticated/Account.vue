@@ -8,8 +8,6 @@
       </v-col>
       <v-col md="9" sm="12">
         <user-data class="mb-5" />
-
-        <user-cars />
       </v-col>
     </v-row>
   </authenticated-container>
@@ -22,13 +20,12 @@ import AuthenticatedContainer from '~/components/layouts/authenticated/Container
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import UserAvatar from '~/components/account/UserAvatar.vue'
 import UserData from '~/components/account/UserData.vue'
-import UserCars from '~/components/account/UserCars.vue'
 import DisableAccount from '~/components/shared/account/Disable.vue'
 
 export default App.extend({
   name: 'Account',
 
-  components: { DisableAccount, AuthenticatedContainer, ButtonDefault, UserData, UserCars, UserAvatar },
+  components: { DisableAccount, AuthenticatedContainer, ButtonDefault, UserData, UserAvatar },
 
   created () {
     this.getCurrentUser()

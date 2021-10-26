@@ -35,3 +35,7 @@
 ::-webkit-scrollbar-thumb:hover {
   background: #555;
 }
+
+tbody tr:nth-of-type(odd) {
+  background-color: rgb(213, 213, 213);
+}

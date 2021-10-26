@@ -85,6 +85,7 @@ export default App.extend({
       this.login({ email: this.email, password: this.password })
         .then((response) => {
           if (response) {
+            this.pushAlertSuccess('Bem-vindo ao sistema!')
             return this.goTo('dashboard')
           }
           this.pushAlertError('Login e/ou senha inválidos')

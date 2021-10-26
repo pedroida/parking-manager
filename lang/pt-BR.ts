@@ -363,7 +363,9 @@ export default {
   },
 
   userTypes: {
-    STUDENTS: 'Estudante'
+    STUDENTS: 'Estudante',
+    SPEAKER: 'Palestrante',
+    SERVICE: 'Servidor'
   },
 
   users: {

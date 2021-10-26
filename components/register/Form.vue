@@ -1,9 +1,12 @@
 <template>
   <div>
-    <input-default v-model="user.name" label="Nome" :error="getErrorMessage('name')" />
-    <student-email-default v-model="user.email" label="E-mail" :error="getErrorMessage('email')" @is-valid="validateEmail" />
+    <input-default v-model="user.name" label="Nome *" :error="getErrorMessage('name')" />
+    <student-email-default v-model="user.email" label="E-mail *" :error="getErrorMessage('email')" @is-valid="validateEmail" />
 
-    <v-row class="mt-3">
+    <password-default v-model="user.password" label="Senha *" :error="getErrorMessage('password')" />
+    <password-default v-model="user.confirmPassword" label="Confirmar senha *" :error="getErrorMessage('confirmPassword')" />
+
+    <v-row>
       <v-col cols="12" md="6" sm="12" class="pb-0 pb-md-3">
         <input-default v-model="user.cars[0].modelCar" label="Modelo do veículo" :error="getErrorMessage('modelCar')" />
       </v-col>
@@ -12,8 +15,7 @@
       </v-col>
     </v-row>
 
-    <password-default v-model="user.password" label="Senha" :error="getErrorMessage('password')" />
-    <password-default v-model="user.confirmPassword" label="Confirmar senha" :error="getErrorMessage('confirmPassword')" />
+    <small class="red--text">* Campos obrigatórios</small>
   </div>
 </template>
 

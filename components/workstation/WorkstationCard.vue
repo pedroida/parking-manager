@@ -6,7 +6,15 @@
 
     <template v-if="isAdmin">
       <remove-workstation :workstation="workstation" />
-      <button-default small icon-small icon="mdi-pencil" :block="false" title="Editar estação" class="float-md-right mb-md-5 mr-md-5" @click="editWorkstation" />
+      <button-default
+        small
+        icon-small
+        icon="mdi-pencil"
+        :block="false"
+        title="Editar estação"
+        class="float-md-right mb-md-5 mr-md-5"
+        @click="editWorkstation"
+      />
     </template>
 
     <div class="d-flex justify-space-around mt-5 w-100">

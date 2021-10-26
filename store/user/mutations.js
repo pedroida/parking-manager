@@ -7,6 +7,15 @@ export default {
   SET_USER: (state, user) => {
     state.user = user
   },
+  SET_USER_ON_LIST: (state, user) => {
+    state.users = state.users.map((currentUser) => {
+      if (currentUser.id === user) {
+        currentUser = user
+      }
+
+      return currentUser
+    })
+  },
   SET_USERS: (state, users) => {
     state.users = users
   },

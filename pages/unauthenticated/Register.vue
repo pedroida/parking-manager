@@ -42,7 +42,7 @@ export default App.extend({
 
   data () {
     return {
-      user: UserFactory('', '', '', '', '', '', '', [CarFactory()]),
+      user: UserFactory([CarFactory()]),
       validEmail: true,
       errors: [],
       loading: false
@@ -57,13 +57,17 @@ export default App.extend({
     },
 
     validForm () {
-      return this.user.name &&
+      const userValid = this.user.name &&
         this.user.email &&
         this.user.password &&
         this.user.confirmPassword &&
-        this.user.cars[0].plateCar &&
-        this.user.cars[0].modelCar &&
         (this.user.password === this.user.confirmPassword)
+
+      const carValid = (this.user.cars[0].plateCar || this.user.cars[0].modelCar)
+        ? (this.user.cars[0].plateCar && this.user.cars[0].modelCar)
+        : true
+
+      return userValid && carValid
     }
   },
 

@@ -34,7 +34,7 @@
         </template>
         <template #[`item.roles`]="{ item: { roles } }">
           <div v-for="(role, index) in roles" :key="`role-${index}`">
-            <v-chip small color="primary" class="my-1">
+            <v-chip small :color="roleColor(role)" class="my-1">
               {{ role.description }}
             </v-chip>
             <br>
@@ -61,10 +61,16 @@
           </template>
         </template>
         <template #[`item.actions`]="{ item }">
-          <action-button small icon="mdi-pencil" color="warning" tooltip-text="Editar" />
+          <action-button
+            small
+            icon="mdi-pencil"
+            color="warning"
+            tooltip-text="Editar"
+            @click="goTo({ 'name': 'edit-user', params: { 'id': item.id } })"
+          />
           <action-button small icon="mdi-trash-can" color="error" tooltip-text="Remover" />
           <action-button small icon="mdi-location-enter" color="secondary" tooltip-text="Acessos" />
-          <action-button icon-small small icon="mdi-file-document-multiple" color="info" tooltip-text="Documentos" />
+          <action-button icon-small small icon="mdi-car" color="info" tooltip-text="Veículos" />
           <action-button
             v-if="!item.authorisedAccess"
             small
@@ -83,6 +89,7 @@
       </v-data-table>
       <div class="text-center pt-2">
         <v-pagination
+          total-visible="10"
           :length="pagination.totalPage"
           :value="pagination.page + 1"
           @input="handlePaginate"
@@ -102,6 +109,7 @@ import App from '~/components/App'
 import AuthenticatedContainer from '~/components/layouts/authenticated/Container.vue'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import ActionButton from '~/components/shared/data-table/ActionButton.vue'
+import Role from '~/entity/Role'
 
 export default App.extend({
   name: 'Users',
@@ -177,6 +185,17 @@ export default App.extend({
   methods: {
     ...mapActions('user', ['getUsers']),
 
+    roleColor (role: Role): string {
+      switch (role.id) {
+        case 1:
+          return 'primary'
+        case 2:
+          return 'info'
+        default:
+          return 'secondary'
+      }
+    },
+
     formatText (text: string, limit: number = 15) {
       return text.slice(0, limit) + (text.length > limit ? '...' : '')
     },
@@ -201,7 +220,7 @@ export default App.extend({
     }),
 
     newUser () {
-
+      this.goTo('create-user')
     },
 
     handlePaginate (currentPage: number) {

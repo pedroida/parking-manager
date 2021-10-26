@@ -5,8 +5,8 @@
         rounded
         small
         color="error"
-        @click="workstationModal = !workstationModal"
         class="float-md-right mb-md-5 mr-md-5"
+        @click="workstationModal = !workstationModal"
       >
         <v-icon small>
           mdi-trash-can

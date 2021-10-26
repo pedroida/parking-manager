@@ -10,12 +10,13 @@
         :block="false"
         label="Nova estação"
         icon="mdi-plus"
-        class="float-md-right" @click="newWorkstation"
+        class="float-md-right"
+        @click="newWorkstation"
       />
     </template>
     <workstation-form v-if="isAdmin" />
 
-    <v-row class="mt-5" v-if="workstations.length">
+    <v-row v-if="workstations.length" class="mt-5">
       <v-col v-for="(workstation) in workstations" :key="`workstation-${workstation.id}`" cols="12" md="4">
         <workstation-card :workstation="workstation" />
       </v-col>

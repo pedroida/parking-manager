@@ -1,7 +1,15 @@
 <template>
   <v-tooltip bottom>
     <template #activator="{ on, attrs }">
-      <v-btn :small="small" :color="color" class="my-1 action-button" :class="buttonClass" v-bind="attrs" v-on="on">
+      <v-btn
+        :small="small"
+        :color="color"
+        class="my-1 action-button"
+        :class="buttonClass"
+        v-bind="attrs"
+        v-on="on"
+        @click="$emit('click')"
+      >
         <v-icon :small="iconSmall">
           {{ icon }}
         </v-icon>
@@ -28,19 +36,27 @@ export default {
     },
 
     color: {
-      type: String
+      type: String,
+      required: true,
+      default: () => 'primary'
     },
 
     icon: {
-      type: String
+      type: String,
+      required: false,
+      default: () => ''
     },
 
     tooltipText: {
-      type: String
+      type: String,
+      required: false,
+      default: () => ''
     },
 
     buttonClass: {
-      type: String
+      type: String,
+      required: false,
+      default: () => ''
     }
   }
 }

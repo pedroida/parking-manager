@@ -1,9 +1,9 @@
 <template>
   <unauthenticated-container>
-    <card class="mx-auto">
+    <card class="mx-auto w-100">
       <v-row class="ma-0 h-100">
         <v-col class="pa-0 text-center">
-          <img src="~/assets/images/xenon.png" alt="" class="logo mb-5 w-50">
+          <img src="~/assets/images/xenon.png" alt="" class="logo mb-5">
 
           <div>
             <h2 class="text-center">
@@ -68,5 +68,6 @@ export default App.extend({
   .logo {
     margin: auto;
     max-width: 80%;
+    width: 300px;
   }
 </style>

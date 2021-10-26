@@ -24,7 +24,7 @@
               :key="i"
               :to="item.to"
               router
-              exact
+              :exact="item.exact"
             >
               <v-list-item-action>
                 <v-icon>{{ item.icon }}</v-icon>
@@ -95,24 +95,35 @@ export default App.extend({
           title: 'Home',
           to: this.localePath('dashboard'),
           active: true,
+          exact: true,
           show: true
         },
         {
           icon: 'mdi-camera-wireless',
           title: 'Estações',
           to: this.localePath('workstations'),
+          exact: true,
           show: this.internalCurrentUser
         },
         {
           icon: 'mdi-account',
           title: 'Usuários',
           to: this.localePath('users'),
+          exact: false,
           show: this.isAdmin
         },
         {
           icon: 'mdi-card-account-details',
           title: 'Conta',
           to: this.localePath('account'),
+          exact: true,
+          show: true
+        },
+        {
+          icon: 'mdi-car',
+          title: 'Meus veículos',
+          to: this.localePath('my-cars'),
+          exact: true,
           show: true
         }
       ]

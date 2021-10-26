@@ -1,33 +1,25 @@
 <template>
-  <v-select
-    v-model="selected"
+  <v-textarea
+    v-model="content"
     dense
-    :items="items"
-    :item-value="itemValue"
-    :item-text="itemText"
-    :error-messages="error"
-    :return-object="returnObject"
     :label="rawLabel ? rawLabel : $t(label)"
-    :placeholder="placeholder ? $t(placeholder) : (rawLabel ? rawLabel : $t(label))"
+    :error-messages="error"
+    :maxlength="maxlength"
+    :autocomplete="false"
     :disabled="disabled"
+    :placeholder="placeholder ? $t(placeholder) : (rawLabel ? rawLabel : $t(label))"
     background-color="white"
     :hide-details="hideDetails"
     outlined
-    :multiple="multiple"
-  >
-    <template #no-data>
-      <small class="pl-3">
-        Nenhum item encontrado
-      </small>
-    </template>
-  </v-select>
+    @keydown.enter="$emit('enterkey')"
+  />
 </template>
 
 <script>
 import App from '~/components/App'
 
 export default App.extend({
-  name: 'SelectDefault',
+  name: 'TextAreaDefault',
 
   props: {
     hideDetails: {
@@ -53,29 +45,8 @@ export default App.extend({
       default: () => ''
     },
 
-    items: {
-      type: Array,
-      required: true
-    },
-
-    itemValue: {
-      type: String,
-      required: false
-    },
-
-    itemText: {
-      type: String,
-      required: false
-    },
-
-    returnObject: {
-      type: Boolean,
-      required: false,
-      default: false
-    },
-
     value: {
-      type: [String, Number, Object, Array],
+      type: [String, Number],
       required: false,
       default: ''
     },
@@ -85,13 +56,12 @@ export default App.extend({
       required: false
     },
 
-    disabled: {
-      type: Boolean,
-      required: false,
-      default: () => false
+    maxlength: {
+      type: [String, Number],
+      required: false
     },
 
-    multiple: {
+    disabled: {
       type: Boolean,
       required: false,
       default: () => false
@@ -99,13 +69,13 @@ export default App.extend({
   },
 
   computed: {
-    selected: {
+    content: {
       get () {
         return this.value
       },
 
-      set (val) {
-        this.$emit('input', val)
+      set (value) {
+        this.$emit('input', value)
       }
     }
   }

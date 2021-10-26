@@ -64,6 +64,18 @@ class ApiRoutes {
   get getUsers () {
     return `${this.baseUrl}/users/all`
   }
+
+  getUser (id) {
+    return `${this.baseUrl}/users/${id}`
+  }
+
+  get createUser () {
+    return `${this.baseUrl}/users`
+  }
+
+  editUser (id) {
+    return `${this.baseUrl}/users/${id}`
+  }
 }
 
 const apiRoutes = new ApiRoutes()

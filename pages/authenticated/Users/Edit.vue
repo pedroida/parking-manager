@@ -1,0 +1,84 @@
+<template>
+  <authenticated-container
+    v-if="currentUser"
+    page-title="Novo usuário"
+    page-subtitle="Criação de um novo usuário"
+  >
+    <card>
+      <user-form v-model="user" :errors="errors" />
+
+      <v-row>
+        <v-col>
+          <button-default :disabled="!validUser" :block="false" label="Salvar" class="float-md-right" @click="submit" />
+        </v-col>
+      </v-row>
+    </card>
+  </authenticated-container>
+</template>
+
+<script lang="ts">
+import { mapActions } from 'vuex'
+import App from '@/components/App'
+import Card from '@/components/shared/card.vue'
+import ButtonDefault from '@/components/shared/form/ButtonDefault.vue'
+import AuthenticatedContainer from '~/components/layouts/authenticated/Container.vue'
+import UserForm from '@/components/users/Form.vue'
+import { UserFactory } from '@/entity/factories/UserFactory'
+import { RoleFactory } from '@/entity/factories/RoleFactory'
+import { CarFactory } from '~/entity/factories/CarFactory'
+import User from '~/entity/User'
+
+export default App.extend({
+  name: 'EditUser',
+
+  components: { UserForm, AuthenticatedContainer, Card, ButtonDefault },
+
+  mounted () {
+    this.getUser(this.userId).then((user: User) => {
+      this.user = { ...user }
+    })
+  },
+
+  computed: {
+    userId () {
+      return this.$route.params?.id
+    },
+
+    validUser (): boolean {
+      return this.user.name && this.user.email && this.user.type && this.user.roles.length
+    }
+  },
+
+  data () {
+    return {
+      user: UserFactory([CarFactory()], [RoleFactory(1, 'ROLE_DRIVER', 'Perfil Motorista')]),
+      errors: []
+    }
+  },
+
+  methods: {
+    ...mapActions('user', ['editUser', 'getUser']),
+
+    submit () {
+      if (!this.validUser) {
+        return false
+      }
+
+      this.editUser(this.user).then(() => {
+        this.pushAlertSuccess('Usuário editado sucesso!')
+        this.goTo('users')
+      }).catch((error: any) => {
+        if ((error?.response?.data?.message as string).includes('E-mail')) {
+          this.errors = [{ field: 'email', descriptionError: error?.response?.data?.message }]
+        } else {
+          this.errors = error?.response?.data?.details
+        }
+      })
+    }
+  }
+})
+</script>
+
+<style scoped>
+
+</style>

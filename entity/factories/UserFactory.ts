@@ -3,6 +3,8 @@ import Car from '~/entity/Car'
 import Role from '~/entity/Role'
 
 export function UserFactory (
+  cars?: Car[],
+  roles?: Role[],
   id: string = '',
   name: string = '',
   email: string = '',
@@ -10,8 +12,6 @@ export function UserFactory (
   avatar: string = '',
   password?: string,
   confirmPassword?: string,
-  cars?: Car[],
-  roles?: Role[],
   authorisedAccess: boolean = false,
   enabled: boolean = false
 ): User {
