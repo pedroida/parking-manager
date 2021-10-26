@@ -42,10 +42,18 @@ export default {
   },
 
   async editUser ({ dispatch }, payload) {
-    console.log(payload)
     const service = await dispatch('service', UserService, { root: true })
     return await service.editUser(routes.editUser(payload.id), payload)
       .then((response) => {
+        return response.data
+      })
+  },
+
+  async disableUser ({ dispatch, commit }, payload) {
+    const service = await dispatch('service', UserService, { root: true })
+    return await service.disableUser(routes.disableUser, payload)
+      .then((response) => {
+        commit('REMOVE_USER_FROM_LIST', payload.userId)
         return response.data
       })
   }

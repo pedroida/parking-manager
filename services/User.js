@@ -51,4 +51,8 @@ export default class User {
 
     return await this.httpClient.put(url, payload)
   }
+
+  async disableUser (url, { userId, reason }) {
+    return await this.httpClient.delete(url, { data: { userId, reason } })
+  }
 }

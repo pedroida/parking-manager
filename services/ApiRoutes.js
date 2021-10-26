@@ -76,6 +76,10 @@ class ApiRoutes {
   editUser (id) {
     return `${this.baseUrl}/users/${id}`
   }
+
+  get disableUser () {
+    return `${this.baseUrl}/users/`
+  }
 }
 
 const apiRoutes = new ApiRoutes()

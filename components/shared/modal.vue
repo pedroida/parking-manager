@@ -14,7 +14,7 @@
     </template>
 
     <v-card>
-      <div class="primary rounded-0">
+      <div class="rounded-0" :class="[headerColor]">
         <div
           class="modal-default modal-default-header d-flex  align-center"
           :class="hideClose ? 'justify-end' : 'justify-space-between'"
@@ -84,6 +84,12 @@ export default App.extend({
       type: String,
       required: false,
       default: () => 'mdi-close'
+    },
+
+    headerColor: {
+      type: String,
+      required: false,
+      default: () => 'primary'
     },
 
     hideClose: {

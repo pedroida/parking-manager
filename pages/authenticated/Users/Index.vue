@@ -68,7 +68,12 @@
             tooltip-text="Editar"
             @click="goTo({ 'name': 'edit-user', params: { 'id': item.id } })"
           />
-          <action-button small icon="mdi-trash-can" color="error" tooltip-text="Remover" />
+          <action-button
+            small
+            icon="mdi-close"
+            color="error"
+            tooltip-text="Desativar"
+            @click="showDisableModal(item)"/>
           <action-button small icon="mdi-location-enter" color="secondary" tooltip-text="Acessos" />
           <action-button icon-small small icon="mdi-car" color="info" tooltip-text="Veículos" />
           <action-button
@@ -81,7 +86,7 @@
           <action-button
             v-else
             small
-            icon="mdi-close"
+            icon="mdi-cancel"
             color="error"
             tooltip-text="Proibir acesso"
           />
@@ -99,6 +104,9 @@
     <h2 v-else class="text-center my-10">
       Não há usuários cadastrados até o momento
     </h2>
+
+    <disable-user-modal></disable-user-modal>
+
   </authenticated-container>
 </template>
 
@@ -109,12 +117,14 @@ import App from '~/components/App'
 import AuthenticatedContainer from '~/components/layouts/authenticated/Container.vue'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import ActionButton from '~/components/shared/data-table/ActionButton.vue'
+import DisableUserModal from '~/components/users/DisableUserModal.vue'
 import Role from '~/entity/Role'
+import User from '~/entity/User'
 
 export default App.extend({
   name: 'Users',
 
-  components: { AuthenticatedContainer, ButtonDefault, ActionButton },
+  components: { AuthenticatedContainer, ButtonDefault, ActionButton, DisableUserModal },
 
   created () {
     this.getUsers()
@@ -184,6 +194,10 @@ export default App.extend({
 
   methods: {
     ...mapActions('user', ['getUsers']),
+
+    showDisableModal (user: User) {
+      this.$root.$emit('disable-user', user)
+    },
 
     roleColor (role: Role): string {
       switch (role.id) {
