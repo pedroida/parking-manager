@@ -12,8 +12,6 @@ export default class Authentication {
   }
 
   async register (url, payload) {
-    payload.modelCar = payload.cars[0].modelCar
-    payload.plateCar = payload.cars[0].plateCar
     return await this.httpClient.post(url, payload)
   }
 

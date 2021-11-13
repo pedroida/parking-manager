@@ -33,7 +33,6 @@ import Card from '~/components/shared/card.vue'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import RegisterForm from '~/components/register/Form.vue'
 import { UserFactory } from '~/entity/factories/UserFactory'
-import { CarFactory } from '~/entity/factories/CarFactory'
 
 export default App.extend({
   name: 'Register',
@@ -42,7 +41,7 @@ export default App.extend({
 
   data () {
     return {
-      user: UserFactory([CarFactory()]),
+      user: UserFactory(),
       validEmail: true,
       errors: [],
       loading: false
@@ -57,17 +56,11 @@ export default App.extend({
     },
 
     validForm () {
-      const userValid = this.user.name &&
+      return this.user.name &&
         this.user.email &&
         this.user.password &&
         this.user.confirmPassword &&
         (this.user.password === this.user.confirmPassword)
-
-      const carValid = (this.user.cars[0].plateCar || this.user.cars[0].modelCar)
-        ? (this.user.cars[0].plateCar && this.user.cars[0].modelCar)
-        : true
-
-      return userValid && carValid
     }
   },
 

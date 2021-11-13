@@ -53,12 +53,6 @@ export const actions = {
       axiosInstance.defaults.headers.common.Authorization = 'Bearer ' + authorization
     }
 
-    const currentUser = getters['current-user/currentUser']
-    if (currentUser) {
-      const roles = [...currentUser.roles]
-      axiosInstance.defaults.headers.ROLE = roles.reverse()[0].name
-    }
-
     axiosInstance.defaults.headers['Content-Language'] = this.$cookies.get('app_current_lang') || 'en'
 
     return new Service(axiosInstance)

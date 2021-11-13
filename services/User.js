@@ -14,12 +14,28 @@ export default class User {
     })
   }
 
+  async getCars (url) {
+    return await this.httpClient.get(url)
+  }
+
+  async getCarDoc (url) {
+    return await this.httpClient.get(url)
+  }
+
+  async approveCar (url) {
+    return await this.httpClient.patch(url)
+  }
+
+  async reproveCar (url) {
+    return await this.httpClient.patch(url)
+  }
+
   async getUser (url) {
     return await this.httpClient.get(url)
   }
 
   async createUser (url, user) {
-    let payload = {
+    const payload = {
       name: user.name,
       email: user.email,
       typeUser: user.type,
@@ -28,13 +44,6 @@ export default class User {
       authorisedAccess: user.authorisedAccess
     }
 
-    if (user.cars[0].modelCar) {
-      payload = {
-        ...payload,
-        modelCar: user.cars[0].modelCar,
-        plateCar: user.cars[0].plateCar
-      }
-    }
     return await this.httpClient.post(url, payload)
   }
 

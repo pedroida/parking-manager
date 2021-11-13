@@ -16,7 +16,7 @@ export default App.extend({
   components: { AuthenticatedContainer, UserCars },
 
   created () {
-    if (!this.currentUser) { this.getCurrentUser() }
+    this.getCurrentUser()
   },
 
   methods: {

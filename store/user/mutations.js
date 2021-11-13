@@ -1,6 +1,13 @@
 import { merge } from 'lodash'
 
 export default {
+  SET_LOADING: (state, loading) => {
+    state.loading = loading
+  },
+  SET_CAR_LOADING: (state, loading) => {
+    state.carLoading = loading
+  },
+
   SET_PAGINATION: (state, pagination) => {
     state.pagination = merge(state.pagination, pagination)
   },
@@ -19,22 +26,19 @@ export default {
   SET_USERS: (state, users) => {
     state.users = users
   },
-  ADD_WORKSTATION: (state, workstation) => {
-    state.workstations.push(workstation)
-  },
-  SET_WORKSTATION_ON_LIST: (state, workstation) => {
-    state.workstations = state.workstations.map((currentWorkstation) => {
-      if (+currentWorkstation.id === +workstation.id) {
-        return workstation
-      }
-      return currentWorkstation
-    })
-  },
-  REMOVE_WORKSTATION_FROM_LIST: (state, workstation) => {
-    const index = state.workstations.findIndex((currentWorkstation) => {
-      return currentWorkstation.id === workstation.id
-    })
 
-    state.workstations.splice(index, 1)
+  SET_CARS: (state, cars) => {
+    state.cars = cars
+  },
+
+  UPDATE_USER_DISABLED: (state, payload) => {
+    state.users = state.users.map((currentUser) => {
+      if (currentUser.id === payload.userId) {
+        currentUser.enabled = false
+        currentUser.disableReason = payload.reason
+      }
+
+      return currentUser
+    })
   }
 }

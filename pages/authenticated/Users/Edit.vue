@@ -25,7 +25,6 @@ import AuthenticatedContainer from '~/components/layouts/authenticated/Container
 import UserForm from '@/components/users/Form.vue'
 import { UserFactory } from '@/entity/factories/UserFactory'
 import { RoleFactory } from '@/entity/factories/RoleFactory'
-import { CarFactory } from '~/entity/factories/CarFactory'
 import User from '~/entity/User'
 
 export default App.extend({
@@ -51,7 +50,7 @@ export default App.extend({
 
   data () {
     return {
-      user: UserFactory([CarFactory()], [RoleFactory(1, 'ROLE_DRIVER', 'Perfil Motorista')]),
+      user: UserFactory([], [RoleFactory(1, 'ROLE_DRIVER', 'Perfil Motorista')]),
       errors: []
     }
   },

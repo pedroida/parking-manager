@@ -11,6 +11,7 @@ export interface IUser {
   avatar?: string
   password?: string
   confirmPassword?: string
+  disableReason?: string
   authorisedAccess: boolean
   enabled: boolean
 }
@@ -25,6 +26,7 @@ export default class User {
   public enabled: boolean
   public password?: string
   public confirmPassword?: string
+  public disableReason?: string
   public cars?: Car[]
   public roles?: Role[]
 
@@ -38,6 +40,7 @@ export default class User {
     this.cars = props.cars
     this.roles = props.roles
     this.avatar = props.avatar
+    this.disableReason = props.disableReason
     this.enabled = props.enabled || false
     this.authorisedAccess = props.authorisedAccess || false
   }

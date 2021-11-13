@@ -36,4 +36,14 @@ export default class CurrentUser {
       }
     })
   }
+
+  async sendDoc (url, document) {
+    const formData = new FormData()
+    formData.append('file', document, 'file')
+    return await this.httpClient.post(url, formData, {
+      headers: {
+        'Content-Type': `multipart/form-data; boundary=${formData._boundary}`
+      }
+    })
+  }
 }

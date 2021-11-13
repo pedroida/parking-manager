@@ -6,15 +6,6 @@
     <password-default v-model="user.password" label="Senha *" :error="getErrorMessage('password')" />
     <password-default v-model="user.confirmPassword" label="Confirmar senha *" :error="getErrorMessage('confirmPassword')" />
 
-    <v-row>
-      <v-col cols="12" md="6" sm="12" class="pb-0 pb-md-3">
-        <input-default v-model="user.cars[0].modelCar" label="Modelo do veículo" :error="getErrorMessage('modelCar')" />
-      </v-col>
-      <v-col cols="12" md="6" sm="12" class="pt-0 pt-md-3">
-        <license-plate-input v-model="user.cars[0].plateCar" label="Placa do veículo" :error="getErrorMessage('plateCar')" />
-      </v-col>
-    </v-row>
-
     <small class="red--text">* Campos obrigatórios</small>
   </div>
 </template>
@@ -24,13 +15,12 @@ import App from '~/components/App'
 import User from '~/entity/User'
 import StudentEmailDefault from '~/components/shared/form/EmailDefault.vue'
 import InputDefault from '~/components/shared/form/InputDefault.vue'
-import LicensePlateInput from '~/components/shared/form/LicensePlateInput.vue'
 import PasswordDefault from '~/components/shared/form/PasswordDefault.vue'
 
 export default App.extend({
   name: 'RegisterForm',
 
-  components: { StudentEmailDefault, PasswordDefault, InputDefault, LicensePlateInput },
+  components: { StudentEmailDefault, PasswordDefault, InputDefault },
 
   props: {
     value: {

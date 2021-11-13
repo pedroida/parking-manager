@@ -13,7 +13,8 @@
         :items="types"
         item-text="text"
         item-value="value"
-        :error="getErrorMessage('typeUser')" />
+        :error="getErrorMessage('typeUser')"
+      />
     </v-col>
     <v-col cols="12" md="6">
       <select-default
@@ -33,14 +34,6 @@
 
       <switch-default v-model="user.authorisedAccess" label="Autorizar acesso, habilitando o **usuário terá acesso ao estacionamento**" />
     </v-col>
-    <template v-if="!user.id">
-      <v-col md="6" sm="12" cols="12">
-        <input-default v-model="user.cars[0].modelCar" label="Modelo do veículo (opcional)" :error="getErrorMessage('modelCar')" />
-      </v-col>
-      <v-col md="6" sm="12" cols="12">
-        <license-plate-input v-model="user.cars[0].plateCar" label="Placa do veículo (opcional)" :error="getErrorMessage('plateCar')" />
-      </v-col>
-    </template>
   </v-row>
 </template>
 
@@ -49,7 +42,6 @@ import { mapGetters } from 'vuex'
 import App from '~/components/App'
 import User from '@/entity/User'
 import InputDefault from '@/components/shared/form/InputDefault.vue'
-import LicensePlateInput from '@/components/shared/form/LicensePlateInput.vue'
 import EmailDefault from '@/components/shared/form/EmailDefault.vue'
 import SelectDefault from '@/components/shared/form/SelectDefault.vue'
 import SwitchDefault from '@/components/shared/form/SwitchDefault.vue'
@@ -74,8 +66,7 @@ export default App.extend({
     EmailDefault,
     SelectDefault,
     SwitchDefault,
-    TextAreaDefault,
-    LicensePlateInput
+    TextAreaDefault
   },
 
   computed: {

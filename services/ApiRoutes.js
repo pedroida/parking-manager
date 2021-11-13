@@ -47,6 +47,10 @@ class ApiRoutes {
     return `${this.baseUrl}/profile/avatar`
   }
 
+  sendDoc (carId) {
+    return `${this.baseUrl}/profile/car/${carId}/document`
+  }
+
   // workstations
   get getWorkstations () {
     return `${this.baseUrl}/workstations`
@@ -58,6 +62,11 @@ class ApiRoutes {
 
   get createWorkstation () {
     return `${this.baseUrl}/workstations`
+  }
+
+  // recognitions
+  get getRecognitions () {
+    return `${this.baseUrl}/all-recognizer`
   }
 
   // users
@@ -79,6 +88,23 @@ class ApiRoutes {
 
   get disableUser () {
     return `${this.baseUrl}/users/`
+  }
+
+  // user car
+  getCars (id) {
+    return `${this.baseUrl}/users/${id}/cars`
+  }
+
+  approveCar (id) {
+    return `${this.baseUrl}/users/car/${id}/approved`
+  }
+
+  reproveCar (id) {
+    return `${this.baseUrl}/users/car/${id}/reproved`
+  }
+
+  getCarDoc (id) {
+    return `${this.baseUrl}/users/${id}/prepare-download/document`
   }
 }
 

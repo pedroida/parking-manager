@@ -10,6 +10,7 @@ export function UserFactory (
   email: string = '',
   type: string = '',
   avatar: string = '',
+  disableReason: string = '',
   password?: string,
   confirmPassword?: string,
   authorisedAccess: boolean = false,
@@ -26,6 +27,7 @@ export function UserFactory (
     roles,
     authorisedAccess,
     enabled,
-    avatar
+    avatar,
+    disableReason
   })
 }

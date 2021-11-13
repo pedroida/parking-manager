@@ -5,7 +5,7 @@
     page-subtitle="Criação de um novo usuário"
   >
     <card>
-      <user-form v-model="user" :errors="errors"/>
+      <user-form v-model="user" :errors="errors" />
 
       <v-row>
         <v-col>
@@ -25,7 +25,6 @@ import AuthenticatedContainer from '~/components/layouts/authenticated/Container
 import UserForm from '@/components/users/Form.vue'
 import { UserFactory } from '@/entity/factories/UserFactory'
 import { RoleFactory } from '@/entity/factories/RoleFactory'
-import { CarFactory } from '~/entity/factories/CarFactory'
 
 export default App.extend({
   name: 'CreateUser',
@@ -34,18 +33,13 @@ export default App.extend({
 
   computed: {
     validUser (): boolean {
-      const userValid = this.user.name && this.user.email && this.user.type && this.user.roles.length
-      const carValid = (this.user.cars[0].plateCar || this.user.cars[0].modelCar)
-        ? (this.user.cars[0].plateCar && this.user.cars[0].modelCar)
-        : true
-
-      return userValid && carValid
+      return this.user.name && this.user.email && this.user.type && this.user.roles.length
     }
   },
 
   data () {
     return {
-      user: UserFactory([CarFactory()], [RoleFactory(1, 'ROLE_DRIVER', 'Perfil Motorista')]),
+      user: UserFactory([], [RoleFactory(1, 'ROLE_DRIVER', 'Perfil Motorista')]),
       errors: []
     }
   },

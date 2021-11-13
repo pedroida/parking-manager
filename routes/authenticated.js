@@ -25,6 +25,11 @@ export default [
     component: 'pages/authenticated/Users/Edit.vue'
   },
   {
+    path: 'usuarios/:id/veiculos',
+    name: 'user-cars',
+    component: 'pages/authenticated/Users/Cars.vue'
+  },
+  {
     path: 'meus-veiculos',
     name: 'my-cars',
     component: 'pages/authenticated/MyCars.vue'
@@ -33,5 +38,10 @@ export default [
     path: 'estacoes',
     name: 'workstations',
     component: 'pages/authenticated/Workstations.vue'
+  },
+  {
+    path: 'reconhecimentos',
+    name: 'recognitions',
+    component: 'pages/authenticated/Recognitions/Index.vue'
   }
 ]

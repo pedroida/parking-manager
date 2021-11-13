@@ -125,6 +125,13 @@ export default App.extend({
           to: this.localePath('my-cars'),
           exact: true,
           show: true
+        },
+        {
+          icon: 'mdi-camera-rear',
+          title: 'Reconhecimentos',
+          to: this.localePath('recognitions'),
+          exact: false,
+          show: this.isAdmin
         }
       ]
     }

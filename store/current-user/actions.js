@@ -113,5 +113,13 @@ export default {
         commit('SET_CURRENT_USER', response.data)
         return response
       })
+  },
+
+  async sendDoc ({ dispatch }, payload) {
+    const service = await dispatch('service', CurrentUserService, { root: true })
+    return await service.sendDoc(routes.sendDoc(payload.carId), payload.document)
+      .then((response) => {
+        return response
+      })
   }
 }

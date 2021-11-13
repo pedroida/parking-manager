@@ -9,7 +9,7 @@
         <div>Placa: {{ car.plateCar }}</div>
         <div>
           <div v-if="car.document" />
-          <button-default small :block="false" label="Enviar documento" />
+          <button-default small :block="false" label="Enviar documento" @click="upload(car.id)" />
         </div>
         <div>Reconhecimentos: {{ car.numberAccess }}</div>
         <div>
@@ -23,10 +23,20 @@
         Você não possui veículos cadastrados
       </h2>
     </v-col>
+    <v-col class="d-none">
+      <input
+        ref="uploader"
+        class="d-none"
+        type="file"
+        accept="application/pdf"
+        @change="onFileChanged"
+      >
+    </v-col>
   </v-row>
 </template>
 
 <script lang="ts">
+import { mapActions } from 'vuex'
 import App from '~/components/App'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import CarForm from '~/components/shared/car/Form.vue'
@@ -46,13 +56,39 @@ export default App.extend({
 
   data () {
     return {
-      newCar: CarFactory()
+      newCar: CarFactory(),
+      selectedFile: null,
+      carId: null
     }
   },
 
   methods: {
+    ...mapActions('current-user', ['sendDoc']),
+
     carAdded () {
       this.newCar = CarFactory()
+    },
+
+    upload (carId: string) {
+      this.carId = carId
+      this.loading = true
+      window.addEventListener('focus', () => {
+        this.loading = false
+      }, { once: true })
+
+      this.$refs.uploader.click()
+    },
+    onFileChanged (e: any) {
+      this.loading = true
+      this.selectedFile = e.target.files[0]
+      this.sendDoc({ carId: this.carId, document: this.selectedFile })
+        .then(() => {
+          this.pushAlertSuccess('Documento enviado com sucesso!')
+        }).finally(() => {
+          this.loading = false
+          this.selectedFile = null
+          e.target.files = null
+        })
     }
   }
 })

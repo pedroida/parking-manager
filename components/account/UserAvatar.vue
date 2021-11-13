@@ -10,7 +10,7 @@
       ref="uploader"
       class="d-none"
       type="file"
-      accept="image/png, image/jpeg, image/pjpg"
+      accept="image/png, image/jpeg, image/jpg"
       @change="onFileChanged"
     >
   </div>

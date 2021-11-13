@@ -1,21 +1,10 @@
 <template>
   <authenticated-container
     v-if="currentUser"
-    page-title="Usuários"
-    page-subtitle="Lista de todos os usuários cadastrados no sistema"
+    page-title="Reconhecimentos"
+    page-subtitle="Lista de todos os reconhecimentos cadastrados no sistema"
   >
-    <template #headerAppend>
-      <button-default
-        v-if="isAdmin"
-        :block="false"
-        label="Adicionar usuário"
-        icon="mdi-plus"
-        class="float-md-right"
-        @click="newUser"
-      />
-    </template>
-
-    <template v-if="users.length">
+    <template v-if="recognitions.length">
       <v-data-table
         :headers="headers"
         :items="users"
@@ -76,14 +65,7 @@
             @click="showDisableModal(item)"
           />
           <action-button small icon="mdi-location-enter" color="secondary" tooltip-text="Acessos" />
-          <action-button
-            icon-small
-            small
-            icon="mdi-car"
-            color="info"
-            tooltip-text="Veículos"
-            @click="goTo({ 'name': 'user-cars', params: { 'id': item.id } })"
-          />
+          <action-button icon-small small icon="mdi-car" color="info" tooltip-text="Veículos" />
           <action-button
             v-if="!item.authorisedAccess"
             small
@@ -110,10 +92,11 @@
       </div>
     </template>
     <h2 v-else class="text-center my-10">
-      Não há usuários cadastrados até o momento
+      Não há reconhecimentos cadastrados até o momento
     </h2>
 
-    <disable-user-modal />
+    <loader :loading="loading" />
+
   </authenticated-container>
 </template>
 
@@ -124,42 +107,40 @@ import App from '~/components/App'
 import AuthenticatedContainer from '~/components/layouts/authenticated/Container.vue'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import ActionButton from '~/components/shared/data-table/ActionButton.vue'
-import DisableUserModal from '~/components/users/DisableUserModal.vue'
-import Role from '~/entity/Role'
-import User from '~/entity/User'
+import Loader from '~/components/shared/loader.vue'
 
 export default App.extend({
   name: 'Users',
 
-  components: { AuthenticatedContainer, ButtonDefault, ActionButton, DisableUserModal },
+  components: { AuthenticatedContainer, ButtonDefault, ActionButton, Loader },
 
   created () {
-    this.getUsers()
+    this.getRecognitions()
   },
 
   watch: {
     'pagination.page' () {
-      this.getUsers()
+      this.getRecognitions()
     },
 
     'pagination.sorted' () {
-      this.getUsers()
+      this.getRecognitions()
     },
 
     'pagination.direction' () {
-      this.getUsers()
+      this.getRecognitions()
     }
   },
 
   computed: {
-    ...mapGetters('user', ['users']),
+    ...mapGetters('recognition', ['recognitions', 'loading']),
 
     vm () {
       return this
     },
 
     pagination () {
-      return this.$store.state.user.pagination
+      return this.$store.state.recognition.pagination
     },
 
     headers () {
@@ -200,33 +181,14 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['getUsers']),
-
-    showDisableModal (user: User) {
-      this.$root.$emit('disable-user', user)
-    },
-
-    roleColor (role: Role): string {
-      switch (role.id) {
-        case 1:
-          return 'primary'
-        case 2:
-          return 'info'
-        default:
-          return 'secondary'
-      }
-    },
-
-    formatText (text: string, limit: number = 15) {
-      return text.slice(0, limit) + (text.length > limit ? '...' : '')
-    },
+    ...mapActions('recognition', ['getRecognitions']),
 
     handleSortBy: debounce(function (field: any, vm: any) {
       if (!field) {
         field[0] = 'name'
       }
 
-      vm.$store.commit('user/SET_PAGINATION', {
+      vm.$store.commit('recognition/SET_PAGINATION', {
         sorted: field[0]
       })
     }),
@@ -235,19 +197,15 @@ export default App.extend({
       if (!direction) {
         direction[0] = 'desc'
       }
-      vm.$store.commit('user/SET_PAGINATION', {
+      vm.$store.commit('recognition/SET_PAGINATION', {
         direction: direction[0]
       })
     }),
 
-    newUser () {
-      this.goTo('create-user')
-    },
-
     handlePaginate (currentPage: number) {
       const pagination = { ...this.pagination }
       pagination.page = currentPage - 1
-      this.$store.commit('user/SET_PAGINATION', pagination)
+      this.$store.commit('recognition/SET_PAGINATION', pagination)
     }
   }
 })
