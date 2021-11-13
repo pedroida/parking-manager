@@ -31,7 +31,9 @@
       "@nuxt/types",
       "@nuxtjs/axios",
       "nuxt-i18n",
-      "./vue-shim.d.ts"
+      "./vue-shim.d.ts",
+      "@nuxtjs/dayjs",
+      "dayjs/plugin/relativeTime"
     ]
   },
   "exclude": [

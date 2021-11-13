@@ -5,13 +5,17 @@ export function CarFactory (
   modelCar: string = '',
   numberAccess: number = 0,
   lastAccess: string = '',
-  authorisedAccess: boolean = true
+  authorisedAccess: boolean = true,
+  status: string = 'WAITING',
+  document: string | undefined = undefined
 ): Car {
   return new Car({
     plateCar,
     modelCar,
     numberAccess,
     lastAccess,
-    authorisedAccess
+    authorisedAccess,
+    status,
+    document
   })
 }

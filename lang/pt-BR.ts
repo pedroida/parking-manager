@@ -80,6 +80,11 @@ export default {
     dontHaveAnAccountYet: 'Ainda não tem conta na abler?'
   },
   label: {
+    waitingDocument: 'Aguardando documento',
+    waitingEvaluation: 'Aguardando avaliação',
+    carApproved: 'Aprovado',
+    carReproved: 'Reprovado',
+    carBlocked: 'Bloqueado',
     recordVideo: 'Gravar vídeo',
     recordAgain: 'Gravar outro vídeo',
     stopRecord: 'Finalizar gravação',

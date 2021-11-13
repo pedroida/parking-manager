@@ -89,24 +89,24 @@ export default {
       })
   },
 
-  async approveCar ({ dispatch }, carId) {
+  async approveCar ({ dispatch, commit }, carId) {
     dispatch('setCarLoading', true)
     const service = await dispatch('service', UserService, { root: true })
     return await service.approveCar(routes.approveCar(carId))
       .then((response) => {
-        console.log(response)
+        commit('UPDATE_CAR_STATUS', response.data)
         return response.data
       }).finally(() => {
         dispatch('setCarLoading', false)
       })
   },
 
-  async reproveCar ({ dispatch }, carId) {
+  async reproveCar ({ dispatch, commit }, carId) {
     dispatch('setCarLoading', true)
     const service = await dispatch('service', UserService, { root: true })
     return await service.reproveCar(routes.reproveCar(carId))
       .then((response) => {
-        console.log(response)
+        commit('UPDATE_CAR_STATUS', response.data)
         return response.data
       }).finally(() => {
         dispatch('setCarLoading', false)

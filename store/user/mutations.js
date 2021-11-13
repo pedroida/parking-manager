@@ -40,5 +40,15 @@ export default {
 
       return currentUser
     })
+  },
+
+  UPDATE_CAR_STATUS: (state, currentCar) => {
+    state.user.cars = state.user.cars.map((car) => {
+      if (String(car.id) === String(currentCar.id)) {
+        car.status = currentCar.status
+      }
+
+      return car
+    })
   }
 }

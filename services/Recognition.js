@@ -3,8 +3,26 @@ export default class Recognition {
     this.httpClient = httpClient
   }
 
-  async getRecognitions (url) {
-    return await this.httpClient.get(url)
+  async getRecognitions (url, pagination) {
+    return await this.httpClient.get(url, {
+      params: {
+        size: pagination.size,
+        page: pagination.page,
+        sorted: pagination.sorted,
+        direction: pagination.direction
+      }
+    })
+  }
+
+  async getErrorRecognitions (url, pagination) {
+    return await this.httpClient.get(url, {
+      params: {
+        size: pagination.size,
+        page: pagination.page,
+        sorted: pagination.sorted,
+        direction: pagination.direction
+      }
+    })
   }
 
   async createWorkstation (url, payload) {

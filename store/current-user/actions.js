@@ -115,10 +115,11 @@ export default {
       })
   },
 
-  async sendDoc ({ dispatch }, payload) {
+  async sendDoc ({ dispatch, commit }, payload) {
     const service = await dispatch('service', CurrentUserService, { root: true })
     return await service.sendDoc(routes.sendDoc(payload.carId), payload.document)
       .then((response) => {
+        commit('UPDATE_CAR_STATUS_AFTER_POST_DOC', payload.carId)
         return response
       })
   }

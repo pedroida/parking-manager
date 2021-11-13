@@ -1,15 +1,18 @@
 <template>
   <v-row>
     <v-col cols="12">
-      <car-form v-if="hasMaxCars" v-model="newCar" label="Adicionar veículo" @car-added="carAdded" />
+      <car-form v-if="!hasMaxCars" v-model="newCar" label="Adicionar veículo" @car-added="carAdded" />
+      <h3 v-else class="warning--text">Limite de veículos atingido</h3>
     </v-col>
     <v-col v-if="currentUser.cars.length" cols="12">
       <div v-for="(car, index) in currentUser.cars" :key="index" class="cars-container mb-2" :class="{'mobile-list': isMobile}">
         <div>Modelo: {{ car.modelCar }}</div>
         <div>Placa: {{ car.plateCar }}</div>
         <div>
-          <div v-if="car.document" />
-          <button-default small :block="false" label="Enviar documento" @click="upload(car.id)" />
+          <button-default v-if="!car.document" small :block="false" label="Enviar documento" @click="upload(car.id)" />
+          <div v-else>
+            <status-chip :car="car" />
+          </div>
         </div>
         <div>Reconhecimentos: {{ car.numberAccess }}</div>
         <div>
@@ -42,15 +45,16 @@ import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import CarForm from '~/components/shared/car/Form.vue'
 import { CarFactory } from '~/entity/factories/CarFactory'
 import RemoveCar from '~/components/shared/car/Remove.vue'
+import StatusChip from '~/components/cars/StatusChip.vue'
 
 export default App.extend({
   name: 'UserCars',
 
-  components: { RemoveCar, ButtonDefault, CarForm },
+  components: { StatusChip, RemoveCar, ButtonDefault, CarForm },
 
   computed: {
     hasMaxCars (): boolean {
-      return this.currentUser.cars.length < 5
+      return this.currentUser.cars.length === 5
     }
   },
 

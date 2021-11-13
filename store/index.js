@@ -54,6 +54,7 @@ export const actions = {
     }
 
     axiosInstance.defaults.headers['Content-Language'] = this.$cookies.get('app_current_lang') || 'en'
+    axiosInstance.defaults.headers['Access-Control-Allow-Origin'] = '*'
 
     return new Service(axiosInstance)
   },

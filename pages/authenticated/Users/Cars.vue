@@ -24,8 +24,12 @@
             Não
           </template>
         </template>
+        <template #[`item.status`]="{ item }">
+          <status-chip :car="item" />
+        </template>
         <template #[`item.actions`]="{ item }">
           <action-button
+            v-if="item.document && item.status === 'WAITING'"
             small
             icon="mdi-check"
             color="success"
@@ -33,6 +37,7 @@
             @click="approve(item.id)"
           />
           <action-button
+            v-if="item.document && item.status === 'WAITING'"
             small
             icon="mdi-cancel"
             color="error"
@@ -40,6 +45,7 @@
             @click="reprove(item.id)"
           />
           <action-button
+            v-if="item.document && item.status === 'WAITING'"
             small
             icon="mdi-download"
             color="info"
@@ -69,11 +75,12 @@ import DisableUserModal from '~/components/users/DisableUserModal.vue'
 import User from '~/entity/User'
 import Car from '~/entity/Car'
 import Loader from '~/components/shared/loader.vue'
+import StatusChip from '~/components/cars/StatusChip.vue'
 
 export default App.extend({
   name: 'UserCars',
 
-  components: { AuthenticatedContainer, ButtonDefault, ActionButton, DisableUserModal, Loader },
+  components: { StatusChip, AuthenticatedContainer, ButtonDefault, ActionButton, DisableUserModal, Loader },
 
   created () {
     this.getCars(this.$route.params.id)
@@ -102,6 +109,11 @@ export default App.extend({
         {
           text: 'Acessos',
           value: 'numberAccess',
+          sortable: false
+        },
+        {
+          text: 'Status',
+          value: 'status',
           sortable: false
         },
         {
