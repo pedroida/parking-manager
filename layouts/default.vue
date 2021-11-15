@@ -92,7 +92,7 @@ export default App.extend({
       return [
         {
           icon: 'mdi-home',
-          title: 'Home',
+          title: 'Dashboard',
           to: this.localePath('dashboard'),
           active: true,
           exact: true,

@@ -8,7 +8,7 @@ export default {
   logout: 'Logout',
   noData: 'No results',
   pages: {
-    dashboard: 'Home',
+    dashboard: 'Dashboard',
     applications: 'Applications',
     vacancies: 'Jobs',
     profile: 'Profile',

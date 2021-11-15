@@ -1,6 +1,6 @@
 export default [
   {
-    path: 'home',
+    path: 'dashboard',
     name: 'dashboard',
     component: 'pages/authenticated/Dashboard.vue'
   },
