@@ -1,5 +1,6 @@
 import { WorkstationService } from '@@/services'
 import routes from '@@/services/ApiRoutes'
+import webstomp from 'webstomp-client'
 
 export default {
 
@@ -43,5 +44,23 @@ export default {
         commit('REMOVE_WORKSTATION_FROM_LIST', workstation)
         return response.data
       })
+  },
+
+  listenWebsocket ({ rootGetters, dispatch }, workstationId) {
+    const token = `Bearer ${rootGetters['current-user/authorization']}`
+    const headers = { Authorization: token }
+
+    const socket = new window.SockJS(process.env.STOMP_URL || 'http://localhost:8080/api/ws')
+    const stomp = webstomp.over(socket, {
+      protocols: ['v10.stomp']
+    })
+    stomp.connect(headers, () => {
+      stomp.subscribe(`/topic/change-workstation/${workstationId}`, function (data) {
+        dispatch('setWorkstation', JSON.parse(data.body).workstation)
+      })
+      stomp.subscribe(`/topic/workstation/${workstationId}/recognize`, function (data) {
+        dispatch('recognition/setRecognition', JSON.parse(data.body).recognize, { root: true })
+      })
+    })
   }
 }

@@ -29,10 +29,13 @@
     </div>
 
     <div class="d-flex justify-center my-7">
-      <strong>{{ workstation.mode }}</strong>
+      <strong>{{ $t(`workstationModes.${workstation.mode}`) }}</strong>
     </div>
 
-    <button-default label="Reconhecimentos" />
+    <button-default
+      label="Reconhecimentos"
+      @click="goTo({ name: 'workstation-recognitions', params: { id: workstation.id } })"
+    />
   </collapse-card>
 </template>
 

@@ -102,7 +102,7 @@ export default App.extend({
           icon: 'mdi-camera-wireless',
           title: 'Estações',
           to: this.localePath('workstations'),
-          exact: true,
+          exact: false,
           show: this.internalCurrentUser
         },
         {

@@ -40,6 +40,11 @@ export default [
     component: 'pages/authenticated/Workstations.vue'
   },
   {
+    path: 'estacoes/:id/reconhecimentos',
+    name: 'workstation-recognitions',
+    component: 'pages/authenticated/WorkstationRecognitions.vue'
+  },
+  {
     path: 'reconhecimentos',
     name: 'recognitions',
     component: 'pages/authenticated/Recognitions/Index.vue'

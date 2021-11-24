@@ -9,7 +9,11 @@ export function RecognitionFactory (
   hasError: boolean = false,
   accessGranted: boolean = false,
   errorDetails: string = '',
-  driverName: string = ''
+  driverName: string = '',
+  identifier?: boolean,
+  authorized?: boolean,
+  modelCar?: string,
+  userAvatar?: string,
 ): Recognition {
   return new Recognition({
     id,
@@ -20,6 +24,10 @@ export function RecognitionFactory (
     hasError,
     accessGranted,
     errorDetails,
-    driverName
+    driverName,
+    identifier,
+    authorized,
+    modelCar,
+    userAvatar
   })
 }
