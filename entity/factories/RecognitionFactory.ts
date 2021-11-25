@@ -11,7 +11,7 @@ export function RecognitionFactory (
   errorDetails: string = '',
   driverName: string = '',
   identifier?: boolean,
-  authorized?: boolean,
+  authorize?: boolean,
   modelCar?: string,
   userAvatar?: string,
 ): Recognition {
@@ -26,7 +26,7 @@ export function RecognitionFactory (
     errorDetails,
     driverName,
     identifier,
-    authorized,
+    authorize,
     modelCar,
     userAvatar
   })

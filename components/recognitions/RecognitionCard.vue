@@ -1,10 +1,8 @@
 <template>
   <card hide-title>
     <v-row>
-      <v-col cols="12" md="5">
-        <v-avatar size="100%" tile class="user-avatar" min-height="100px">
-          <img :src="recognition.userAvatar" alt="avatar usuário">
-        </v-avatar>
+      <v-col cols="12" md="5" class="avatar-container d-flex justify-center align-center">
+        <img :src="recognition.userAvatar" alt="avatar usuário" class="user-avatar">
       </v-col>
       <v-col cols="1" class="d-md-block d-none">
         <v-divider vertical />
@@ -21,7 +19,7 @@
         </p>
       </v-col>
       <v-col cols="12" md="5" v-if="!manualWorkstation" class="d-flex flex-column justify-center">
-        <h2 v-if="recognition.authorized" class="text-center success--text text--darken-4">
+        <h2 v-if="recognition.authorize" class="text-center success--text text--darken-4">
           {{ $t('label.authorised') }}
         </h2>
 
@@ -29,7 +27,8 @@
           {{ $t('label.notAuthorised') }}
         </h2>
       </v-col>
-      <v-col cols="12" md="7" v-if="!manualWorkstation" class="d-flex justify-center">
+      <v-col cols="1" />
+      <v-col cols="12" md="6" v-if="manualWorkstation" class="d-flex justify-start">
         <button-default color="primary" label="label.authorise" :block="false" class="px-15 py-5" />
       </v-col>
     </v-row>
@@ -59,5 +58,13 @@ export default App.extend({
 </script>
 
 <style scoped>
+.avatar-container {
+  height: 10em;
+}
 
+.user-avatar {
+  max-width: 100%;
+  max-height: 100%;
+  height: auto;
+}
 </style>

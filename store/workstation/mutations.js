@@ -22,5 +22,13 @@ export default {
     })
 
     state.workstations.splice(index, 1)
+  },
+
+  SET_LAST_RECOGNITION: (state, recognition) => {
+    if (state.workstation.lastRecognitions.length === 5) {
+      state.workstation.lastRecognitions.pop()
+    }
+
+    state.workstation.lastRecognitions.unshift(recognition)
   }
 }

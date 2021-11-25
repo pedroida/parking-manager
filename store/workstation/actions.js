@@ -8,6 +8,10 @@ export default {
     commit('SET_WORKSTATION', workstation)
   },
 
+  setLastRecognition ({ commit }, recognition) {
+    commit('SET_LAST_RECOGNITION', recognition)
+  },
+
   async getWorkstations ({ dispatch, commit }) {
     const service = await dispatch('service', WorkstationService, { root: true })
     return await service.getWorkstations(routes.getWorkstations)
@@ -58,8 +62,10 @@ export default {
       stomp.subscribe(`/topic/change-workstation/${workstationId}`, function (data) {
         dispatch('setWorkstation', JSON.parse(data.body).workstation)
       })
-      stomp.subscribe(`/topic/workstation/${workstationId}/recognize`, function (data) {
-        dispatch('recognition/setRecognition', JSON.parse(data.body).recognize, { root: true })
+      stomp.subscribe(`/topic/workstation/${workstationId}/recognizer`, function (data) {
+        const newRecognition = JSON.parse(data.body)
+        dispatch('recognition/setRecognition', JSON.parse(data.body), { root: true })
+        dispatch('setLastRecognition', newRecognition)
       })
     })
   }

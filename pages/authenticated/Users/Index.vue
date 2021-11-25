@@ -114,6 +114,8 @@
     </h2>
 
     <disable-user-modal />
+
+    <loader :loading="loading" />
   </authenticated-container>
 </template>
 
@@ -127,11 +129,12 @@ import ActionButton from '~/components/shared/data-table/ActionButton.vue'
 import DisableUserModal from '~/components/users/DisableUserModal.vue'
 import Role from '~/entity/Role'
 import User from '~/entity/User'
+import Loader from '~/components/shared/loader.vue'
 
 export default App.extend({
   name: 'Users',
 
-  components: { AuthenticatedContainer, ButtonDefault, ActionButton, DisableUserModal },
+  components: { Loader, AuthenticatedContainer, ButtonDefault, ActionButton, DisableUserModal },
 
   created () {
     this.getUsers()
@@ -152,7 +155,7 @@ export default App.extend({
   },
 
   computed: {
-    ...mapGetters('user', ['users']),
+    ...mapGetters('user', ['users', 'loading']),
 
     vm () {
       return this

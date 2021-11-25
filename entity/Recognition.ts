@@ -9,7 +9,7 @@ export interface IRecognition {
   errorDetails: any
   driverName: string
   identifier?: boolean
-  authorized?: boolean
+  authorize?: boolean
   modelCar?: string
   userAvatar?: string
 }
@@ -25,7 +25,7 @@ export default class Recognition {
   public errorDetails: any
   public driverName: string
   public identifier?: boolean
-  public authorized?: boolean
+  public authorize?: boolean
   public modelCar?: string
   public userAvatar?: string
 
@@ -40,7 +40,7 @@ export default class Recognition {
     this.errorDetails = props.errorDetails
     this.driverName = props.driverName
     this.identifier = props.identifier
-    this.authorized = props.authorized
+    this.authorize = props.authorize
     this.modelCar = props.modelCar
     this.userAvatar = props.userAvatar
   }

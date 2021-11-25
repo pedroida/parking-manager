@@ -8,10 +8,13 @@
       <h2>Modo {{ $t(`workstationModes.${workstation.mode}`) }}</h2>
     </template>
 
-    <div class="d-flex justify-center mt-15">
-      <recognition-card class="col-12 col-md-8" />
+    <div class="mt-15 d-grid recognition-card-container">
+      <v-scroll-x-reverse-transition mode="out-in">
+        <recognition-card v-if="recognition && showCard" v-show="showCard" class="col-12 col-md-8 ma-auto w-fit-content" />
+      </v-scroll-x-reverse-transition>
     </div>
 
+    <last-recognitions class="mt-5" />
   </authenticated-container>
 </template>
 
@@ -20,11 +23,12 @@ import { mapActions, mapGetters } from 'vuex'
 import App from '~/components/App'
 import AuthenticatedContainer from '~/components/layouts/authenticated/Container.vue'
 import RecognitionCard from '~/components/recognitions/RecognitionCard.vue'
+import LastRecognitions from '~/components/workstation/LastRecognitions.vue'
 
 export default App.extend({
   name: 'WorkstationRecognitions',
 
-  components: { RecognitionCard, AuthenticatedContainer },
+  components: { LastRecognitions, RecognitionCard, AuthenticatedContainer },
 
   mounted () {
     setTimeout(() => {
@@ -45,6 +49,22 @@ export default App.extend({
     }
   },
 
+  watch: {
+    recognition () {
+      this.showCard = false
+
+      setTimeout(() => {
+        this.showCard = true
+      }, 500)
+    }
+  },
+
+  data () {
+    return {
+      showCard: true
+    }
+  },
+
   methods: {
     ...mapActions('workstation', ['listenWebsocket'])
   }
@@ -52,4 +72,11 @@ export default App.extend({
 </script>
 
 <style scoped>
+.w-fit-content {
+  width: fit-content;
+}
+
+.recognition-card-container {
+  min-height: 15em;
+}
 </style>

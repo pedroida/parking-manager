@@ -22,13 +22,14 @@ export default {
   },
 
   async getUsers ({ dispatch, commit, getters }) {
+    dispatch('setLoading', true)
     const service = await dispatch('service', UserService, { root: true })
     return await service.getUsers(routes.getUsers, getters.pagination)
       .then((response) => {
         commit('SET_USERS', response.data.items)
         dispatch('setPagination', response.data)
         return response.data
-      })
+      }).finally(() => dispatch('setLoading', false))
   },
 
   async getUser ({ dispatch, commit }, id) {

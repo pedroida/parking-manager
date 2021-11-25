@@ -3,6 +3,7 @@ import { RecognitionService, routes } from '@@/services'
 export default {
 
   setRecognition ({ commit }, recognition) {
+    console.log('recognition', recognition)
     commit('SET_RECOGNITION', recognition)
   },
 
