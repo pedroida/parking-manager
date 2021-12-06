@@ -7,6 +7,10 @@ export default class Workstation {
     return await this.httpClient.get(url)
   }
 
+  async getWorkstation (url) {
+    return await this.httpClient.get(url)
+  }
+
   async createWorkstation (url, payload) {
     return await this.httpClient.post(url, payload)
   }

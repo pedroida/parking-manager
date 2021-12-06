@@ -56,6 +56,10 @@ class ApiRoutes {
     return `${this.baseUrl}/workstations`
   }
 
+  getWorkstation (id) {
+    return `${this.baseUrl}/workstations/${id}`
+  }
+
   handleWorkstation (id) {
     return `${this.baseUrl}/workstations/${id}`
   }

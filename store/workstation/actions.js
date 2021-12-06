@@ -21,6 +21,15 @@ export default {
       })
   },
 
+  async getWorkstation ({ dispatch, commit }, workstationId) {
+    const service = await dispatch('service', WorkstationService, { root: true })
+    return await service.getWorkstation(routes.getWorkstation(workstationId))
+      .then((response) => {
+        commit('SET_WORKSTATION', response.data)
+        return response.data
+      })
+  },
+
   async createWorkstation ({ dispatch, commit }, workstation) {
     const service = await dispatch('service', WorkstationService, { root: true })
     return await service.createWorkstation(routes.createWorkstation, workstation)

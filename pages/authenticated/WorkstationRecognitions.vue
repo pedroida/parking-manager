@@ -30,6 +30,10 @@ export default App.extend({
 
   components: { LastRecognitions, RecognitionCard, AuthenticatedContainer },
 
+  created () {
+    this.getWorkstation(this.$route.params.id)
+  },
+
   mounted () {
     setTimeout(() => {
       this.listenWebsocket(this.workstationId)
@@ -66,7 +70,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('workstation', ['listenWebsocket'])
+    ...mapActions('workstation', ['listenWebsocket', 'getWorkstation'])
   }
 })
 </script>
