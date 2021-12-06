@@ -1,6 +1,6 @@
 <template>
   <div v-if="loading" class="loading-page">
-  <div class="loading"></div>
+    <div class="loading" />
   </div>
 </template>
 <script>

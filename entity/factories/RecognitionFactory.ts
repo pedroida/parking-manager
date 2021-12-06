@@ -13,7 +13,7 @@ export function RecognitionFactory (
   identifier?: boolean,
   authorize?: boolean,
   modelCar?: string,
-  userAvatar?: string,
+  userAvatar?: string
 ): Recognition {
   return new Recognition({
     id,

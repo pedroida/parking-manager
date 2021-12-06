@@ -18,7 +18,7 @@
           Motorista: {{ recognition.driverName }}
         </p>
       </v-col>
-      <v-col cols="12" md="5" v-if="!manualWorkstation" class="d-flex flex-column justify-center">
+      <v-col v-if="!manualWorkstation" cols="12" md="5" class="d-flex flex-column justify-center">
         <h2 v-if="recognition.authorize" class="text-center success--text text--darken-4">
           {{ $t('label.authorised') }}
         </h2>
@@ -28,7 +28,7 @@
         </h2>
       </v-col>
       <v-col cols="1" />
-      <v-col cols="12" md="6" v-if="manualWorkstation" class="d-flex justify-start">
+      <v-col v-if="manualWorkstation" cols="12" md="6" class="d-flex justify-start">
         <button-default color="primary" label="label.authorise" :block="false" class="px-15 py-5" />
       </v-col>
     </v-row>

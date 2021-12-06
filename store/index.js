@@ -32,21 +32,9 @@ export const actions = {
 
   service ({ getters }, Service) {
     const axiosInstance = axios.create()
-
-    // axiosInstance.interceptors.request.use(function (config) {
-    //   return config
-    // }, function (error) {
-    //   return Promise.reject(error)
-    // })
     axiosInstance.interceptors.response.use((response) => {
       return response
-    }, (error) => {
-      // const status = error?.response?.data?.status_code
-      // if (status === 401) {
-      //   dispatch('session/logout', null, { root: true })
-      // }
-      return Promise.reject(error)
-    })
+    }, error => Promise.reject(error))
 
     const authorization = getters['current-user/authorization']
     if (authorization) {

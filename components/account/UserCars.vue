@@ -2,7 +2,9 @@
   <v-row>
     <v-col cols="12">
       <car-form v-if="!hasMaxCars" v-model="newCar" label="Adicionar veículo" @car-added="carAdded" />
-      <h3 v-else class="warning--text">Limite de veículos atingido</h3>
+      <h3 v-else class="warning--text">
+        Limite de veículos atingido
+      </h3>
     </v-col>
     <v-col v-if="currentUser.cars.length" cols="12">
       <div v-for="(car, index) in currentUser.cars" :key="index" class="cars-container mb-2" :class="{'mobile-list': isMobile}">

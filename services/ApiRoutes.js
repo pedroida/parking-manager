@@ -115,6 +115,23 @@ class ApiRoutes {
   getCarDoc (id) {
     return `${this.baseUrl}/users/${id}/prepare-download/document`
   }
+
+  //  dashboard
+  get getWorkstationsWithRecognitions () {
+    return `${this.baseUrl}/system/workstations-and-recognizer`
+  }
+
+  get getGroupedCarsByStatus () {
+    return `${this.baseUrl}/system/registry-cars`
+  }
+
+  get getLastDaysRecognitions () {
+    return `${this.baseUrl}/system/recognizers-week`
+  }
+
+  get getGroupedUsersByType () {
+    return `${this.baseUrl}/system/registry-users`
+  }
 }
 
 const apiRoutes = new ApiRoutes()

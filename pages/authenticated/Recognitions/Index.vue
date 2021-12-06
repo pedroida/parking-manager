@@ -4,8 +4,7 @@
     page-title="Reconhecimentos"
     page-subtitle="Lista de todos os reconhecimentos cadastrados no sistema"
   >
-
-    <v-tabs grow v-model="tab">
+    <v-tabs v-model="tab" grow>
       <v-tabs-slider color="primary" />
 
       <v-tab>

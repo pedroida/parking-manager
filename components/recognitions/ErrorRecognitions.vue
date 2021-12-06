@@ -66,7 +66,6 @@
     </h2>
 
     <loader :loading="loading" />
-
   </div>
 </template>
 

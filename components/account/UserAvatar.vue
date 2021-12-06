@@ -48,8 +48,8 @@ export default App.extend({
       this.loading = true
       this.selectedFile = e.target.files[0]
       this.profileUpdateAvatar(this.selectedFile)
-        .then((response: any) => {
-          console.log(response)
+        .then(() => {
+          this.pushAlertSuccess('Avatar alterado com sucesso!')
         }).finally(() => {
           this.loading = false
           this.selectedFile = null
