@@ -4,7 +4,7 @@ import Role from '~/entity/Role'
 
 export function UserFactory (
   cars?: Car[],
-  roles?: Role[],
+  roles: Role[] = [],
   id: string = '',
   name: string = '',
   email: string = '',

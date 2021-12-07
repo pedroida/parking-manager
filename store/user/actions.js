@@ -8,6 +8,15 @@ export default {
 
   setPagination ({ commit }, data) {
     commit('SET_PAGINATION', {
+      nameOrEmail: data.nameOrEmail,
+      type: data.type,
+      totalElements: data.totalElements,
+      totalPage: data.totalPage
+    })
+  },
+
+  setRecognitionsPagination ({ commit }, data) {
+    commit('SET_USER_RECOGNITIONS_PAGINATION', {
       totalElements: data.totalElements,
       totalPage: data.totalPage
     })
@@ -39,6 +48,17 @@ export default {
         commit('SET_USER', response.data)
         return response.data
       })
+  },
+
+  async getUserRecognitions ({ dispatch, commit, getters }, id) {
+    dispatch('setLoading', true)
+    const service = await dispatch('service', UserService, { root: true })
+    return await service.getUserRecognitions(routes.getUserRecognitions(id), getters.recognitionsPagination)
+      .then((response) => {
+        commit('SET_USER_RECOGNITIONS', response.data.items)
+        dispatch('setRecognitionsPagination', response.data)
+        return response.data
+      }).finally(() => dispatch('setLoading', false))
   },
 
   async createUser ({ dispatch, commit }, payload) {
@@ -95,7 +115,10 @@ export default {
     const service = await dispatch('service', UserService, { root: true })
     return await service.approveCar(routes.approveCar(carId))
       .then((response) => {
-        commit('UPDATE_CAR_STATUS', response.data)
+        commit('UPDATE_CAR_STATUS', {
+          id: carId,
+          status: 'APPROVED'
+        })
         return response.data
       }).finally(() => {
         dispatch('setCarLoading', false)
@@ -107,7 +130,10 @@ export default {
     const service = await dispatch('service', UserService, { root: true })
     return await service.reproveCar(routes.reproveCar(carId))
       .then((response) => {
-        commit('UPDATE_CAR_STATUS', response.data)
+        commit('UPDATE_CAR_STATUS', {
+          id: carId,
+          status: 'REPROVED'
+        })
         return response.data
       }).finally(() => {
         dispatch('setCarLoading', false)

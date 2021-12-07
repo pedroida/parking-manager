@@ -38,7 +38,7 @@ export default class User {
     this.password = props.password
     this.confirmPassword = props.confirmPassword
     this.cars = props.cars
-    this.roles = props.roles
+    this.roles = props.roles || []
     this.avatar = props.avatar
     this.disableReason = props.disableReason
     this.enabled = props.enabled || false

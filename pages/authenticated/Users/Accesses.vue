@@ -1,29 +1,14 @@
 <template>
   <authenticated-container
     v-if="currentUser"
-    page-title="Usuários"
-    page-subtitle="Lista de todos os usuários cadastrados no sistema"
+    page-title="Acessos"
+    page-subtitle="Lista de acessos do usuário"
   >
-    <template #headerAppend>
-      <button-default
-        v-if="isAdmin"
-        :block="false"
-        label="Adicionar usuário"
-        icon="mdi-plus"
-        class="float-md-right"
-        @click="newUser"
-      />
-    </template>
-
-    <users-filter @filter="filterPagination" />
-
-    <template v-if="users.length">
+    <template v-if="recognitions.length">
       <v-data-table
         :headers="headers"
-        :items="users"
+        :items="recognitions"
         hide-default-footer
-        @update:sort-by="handleSortBy($event, vm)"
-        @update:sort-desc="handleSortDirection($event, vm)"
       >
         <template #[`item.name`]="{ item: { name } }">
           {{ formatText(name, 15) }}
@@ -68,7 +53,7 @@
             icon="mdi-pencil"
             color="warning"
             tooltip-text="Editar"
-            @click="goTo({ 'name': 'edit-user', params: { id: item.id } })"
+            @click="goTo({ 'name': 'edit-user', params: { 'id': item.id } })"
           />
           <action-button
             small
@@ -77,13 +62,7 @@
             tooltip-text="Desativar"
             @click="showDisableModal(item)"
           />
-          <action-button
-            small
-            icon="mdi-location-enter"
-            color="secondary"
-            tooltip-text="Acessos"
-            @click="goTo({ name: 'user-accesses', params: { id: item.id } })"
-          />
+          <action-button small icon="mdi-location-enter" color="secondary" tooltip-text="Acessos" />
           <action-button
             icon-small
             small
@@ -121,72 +100,33 @@
       Não há usuários cadastrados até o momento
     </h2>
 
-    <disable-user-modal />
-
     <loader :loading="loading" />
   </authenticated-container>
 </template>
 
 <script lang="ts">
 import { mapActions, mapGetters } from 'vuex'
-import debounce from 'lodash/debounce'
 import App from '~/components/App'
 import AuthenticatedContainer from '~/components/layouts/authenticated/Container.vue'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import ActionButton from '~/components/shared/data-table/ActionButton.vue'
-import DisableUserModal from '~/components/users/DisableUserModal.vue'
 import Role from '~/entity/Role'
-import User from '~/entity/User'
 import Loader from '~/components/shared/loader.vue'
-import UsersFilter from '~/components/users/Filter.vue'
-import UsersPagination from '~/entity/UsersPagination'
 
 export default App.extend({
-  name: 'Users',
+  name: 'UserAccesses',
 
-  components: { UsersFilter, Loader, AuthenticatedContainer, ButtonDefault, ActionButton, DisableUserModal },
+  components: { Loader, AuthenticatedContainer, ButtonDefault, ActionButton },
 
   created () {
-    this.getUsers()
-  },
-
-  watch: {
-    'pagination.page' () {
-      this.getUsers()
-    },
-
-    'pagination.nameOrEmail' () {
-      this.getUsers()
-    },
-
-    'pagination.type' () {
-      this.getUsers()
-    },
-
-    'pagination.sorted' () {
-      this.getUsers()
-    },
-
-    'pagination.direction' () {
-      this.getUsers()
-    }
+    this.getUserRecognitions(this.$route.params.id)
   },
 
   computed: {
-    ...mapGetters('user', ['users', 'loading']),
+    ...mapGetters('user', ['recognitions', 'loading']),
 
-    vm () {
-      return this
-    },
-
-    pagination: {
-      get () {
-        return this.$store.state.user.pagination
-      },
-
-      set (pagination: UsersPagination) {
-        this.$store.dispatch('user/setPagination', pagination)
-      }
+    pagination () {
+      return this.$store.state.user.recognitionsPagination
     },
 
     headers () {
@@ -227,11 +167,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['getUsers']),
-
-    showDisableModal (user: User) {
-      this.$root.$emit('disable-user', user)
-    },
+    ...mapActions('user', ['getUserRecognitions']),
 
     roleColor (role: Role): string {
       switch (role.id) {
@@ -246,33 +182,6 @@ export default App.extend({
 
     formatText (text: string, limit: number = 15) {
       return text.slice(0, limit) + (text.length > limit ? '...' : '')
-    },
-
-    handleSortBy: debounce(function (field: any, vm: any) {
-      if (!field) {
-        field[0] = 'name'
-      }
-
-      vm.$store.commit('user/SET_PAGINATION', {
-        sorted: field[0]
-      })
-    }),
-
-    handleSortDirection: debounce(function (direction: any, vm: any) {
-      if (!direction) {
-        direction[0] = 'desc'
-      }
-      vm.$store.commit('user/SET_PAGINATION', {
-        direction: direction[0]
-      })
-    }),
-
-    newUser () {
-      this.goTo('create-user')
-    },
-
-    filterPagination (pagination: UsersPagination) {
-      this.$store.commit('user/SET_FILTER_PAGINATION', pagination)
     },
 
     handlePaginate (currentPage: number) {

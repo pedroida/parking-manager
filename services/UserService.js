@@ -6,6 +6,19 @@ export default class User {
   async getUsers (url, pagination) {
     return await this.httpClient.get(url, {
       params: {
+        nameOrEmail: pagination.nameOrEmail,
+        type: pagination.type === 'ALL' ? undefined : pagination.type,
+        size: pagination.size,
+        page: pagination.page,
+        sorted: pagination.sorted,
+        direction: pagination.direction
+      }
+    })
+  }
+
+  async getUserRecognitions (url, pagination) {
+    return await this.httpClient.get(url, {
+      params: {
         size: pagination.size,
         page: pagination.page,
         sorted: pagination.sorted,

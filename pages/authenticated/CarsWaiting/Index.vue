@@ -1,8 +1,8 @@
 <template>
   <authenticated-container
     v-if="currentUser"
-    page-title="Veículos"
-    page-subtitle="Lista dos veículos do usuário"
+    page-title="Veículos aguardando avaliação"
+    page-subtitle="Lista de todos os veículos que ainda não foram avaliados"
   >
     <template v-if="cars.length">
       <v-data-table
@@ -56,11 +56,10 @@
       </v-data-table>
     </template>
     <h2 v-else class="text-center my-10">
-      Não há veículos cadastrados até o momento
+      Não há veículos aguardando avaliação até o momento
     </h2>
 
-    <loader :loading="carLoading" />
-
+    <loader :loading="loading" />
   </authenticated-container>
 </template>
 
@@ -70,24 +69,28 @@ import App from '~/components/App'
 import AuthenticatedContainer from '~/components/layouts/authenticated/Container.vue'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import ActionButton from '~/components/shared/data-table/ActionButton.vue'
-import Car from '~/entity/Car'
 import Loader from '~/components/shared/loader.vue'
+import Car from '~/entity/Car'
 import StatusChip from '~/components/cars/StatusChip.vue'
 
 export default App.extend({
-  name: 'UserCars',
+  name: 'CarsWaiting',
 
-  components: { StatusChip, AuthenticatedContainer, ButtonDefault, ActionButton, Loader },
+  components: { Loader, AuthenticatedContainer, ButtonDefault, ActionButton, StatusChip },
 
   created () {
-    this.getCars(this.$route.params.id)
+    this.getCarsWaiting()
   },
 
   computed: {
-    ...mapGetters('user', ['cars', 'carLoading']),
+    ...mapGetters('car-waiting', ['cars', 'loading']),
 
     vm () {
       return this
+    },
+
+    pagination () {
+      return this.$store.state.user.pagination
     },
 
     headers () {
@@ -102,11 +105,6 @@ export default App.extend({
           value: 'modelCar',
           sortable: false,
           width: '10%'
-        },
-        {
-          text: 'Acessos',
-          value: 'numberAccess',
-          sortable: false
         },
         {
           text: 'Status',
@@ -124,7 +122,7 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('user', ['getCars', 'getCarDoc', 'reproveCar', 'approveCar']),
+    ...mapActions('car-waiting', ['getCarsWaiting', 'getCarDoc', 'reproveCar', 'approveCar']),
 
     downloadDoc (car: Car) {
       this.getCarDoc(car.id).then((docUrl: string) => {
@@ -153,6 +151,12 @@ export default App.extend({
       }).catch((error: any) => {
         this.pushAlertError(error.response?.data?.message || 'Houve um problema ao reprovar o veículo')
       })
+    },
+
+    handlePaginate (currentPage: number) {
+      const pagination = { ...this.pagination }
+      pagination.page = currentPage - 1
+      this.$store.commit('user/SET_PAGINATION', pagination)
     }
   }
 })

@@ -9,6 +9,7 @@
 
       <v-row>
         <v-col>
+          <button-default color="info" :block="false" label="Voltar" @click="goTo('users')" />
           <button-default :disabled="!validUser" :block="false" label="Salvar" class="float-md-right" @click="submit" />
         </v-col>
       </v-row>
@@ -44,7 +45,7 @@ export default App.extend({
     },
 
     validUser (): boolean {
-      return this.user.name && this.user.email && this.user.type && this.user.roles.length
+      return (this.user.name && this.user.email && this.user.type && this.user.roles?.length) as boolean
     }
   },
 

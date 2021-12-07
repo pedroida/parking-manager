@@ -26,9 +26,8 @@ export default {
     state.currentUser.cars.unshift(car)
   },
 
-  REMOVE_CAR_FROM_CURRENT_USER: (state, car) => {
-    const carIndex = state.currentUser.cars.findIndex(userCar => userCar.plateCar === car.plateCar)
-    state.currentUser.cars.splice(carIndex, 1)
+  REMOVE_CAR_FROM_CURRENT_USER: (state, plateCar) => {
+    state.currentUser.cars = state.currentUser.cars.filter(userCar => String(userCar.plateCar) !== plateCar)
   },
 
   REMOVE_AUTHORIZATION: (state) => {

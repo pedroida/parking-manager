@@ -132,6 +132,13 @@ export default App.extend({
           to: this.localePath('recognitions'),
           exact: false,
           show: this.isAdmin
+        },
+        {
+          icon: 'mdi-note-search',
+          title: 'Veículos a avaliar',
+          to: this.localePath('cars-waiting'),
+          exact: false,
+          show: this.isAdmin
         }
       ]
     }

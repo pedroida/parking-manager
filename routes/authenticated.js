@@ -30,6 +30,11 @@ export default [
     component: 'pages/authenticated/Users/Cars.vue'
   },
   {
+    path: 'usuarios/:id/acessos',
+    name: 'user-accesses',
+    component: 'pages/authenticated/Users/Accesses.vue'
+  },
+  {
     path: 'meus-veiculos',
     name: 'my-cars',
     component: 'pages/authenticated/MyCars.vue'
@@ -48,5 +53,10 @@ export default [
     path: 'reconhecimentos',
     name: 'recognitions',
     component: 'pages/authenticated/Recognitions/Index.vue'
+  },
+  {
+    path: 'veiculos-a-avaliar',
+    name: 'cars-waiting',
+    component: 'pages/authenticated/CarsWaiting/Index.vue'
   }
 ]

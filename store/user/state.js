@@ -1,5 +1,6 @@
 import { UserFactory } from '~/entity/factories/UserFactory'
 import { PaginationFactory } from '~/entity/factories/PaginationFactory'
+import { UsersPaginationFactory } from '~/entity/factories/UsersPaginationFactory'
 
 export default () => ({
   loading: false,
@@ -7,5 +8,7 @@ export default () => ({
   user: UserFactory(),
   users: [],
   cars: [],
-  pagination: PaginationFactory()
+  pagination: UsersPaginationFactory(),
+  recognitionsPagination: PaginationFactory(),
+  recognitions: []
 })

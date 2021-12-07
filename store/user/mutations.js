@@ -11,8 +11,21 @@ export default {
   SET_PAGINATION: (state, pagination) => {
     state.pagination = merge(state.pagination, pagination)
   },
+
+  SET_FILTER_PAGINATION: (state, pagination) => {
+    state.pagination.nameOrEmail = pagination.nameOrEmail
+    state.pagination.type = pagination.type
+    state.pagination.page = 0
+  },
+
+  SET_USER_RECOGNITIONS_PAGINATION: (state, recognitionsPagination) => {
+    state.recognitionsPagination = merge(state.recognitionsPagination, recognitionsPagination)
+  },
   SET_USER: (state, user) => {
     state.user = user
+  },
+  SET_USER_RECOGNITIONS: (state, recognitions) => {
+    state.recognitions = recognitions
   },
   SET_USER_ON_LIST: (state, user) => {
     state.users = state.users.map((currentUser) => {
@@ -43,7 +56,7 @@ export default {
   },
 
   UPDATE_CAR_STATUS: (state, currentCar) => {
-    state.user.cars = state.user.cars.map((car) => {
+    state.cars = state.cars.map((car) => {
       if (String(car.id) === String(currentCar.id)) {
         car.status = currentCar.status
       }

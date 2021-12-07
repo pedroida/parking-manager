@@ -87,6 +87,10 @@ class ApiRoutes {
     return `${this.baseUrl}/users/${id}`
   }
 
+  getUserRecognitions (id) {
+    return `${this.baseUrl}/users/car/${id}/access`
+  }
+
   get createUser () {
     return `${this.baseUrl}/users`
   }
@@ -114,6 +118,11 @@ class ApiRoutes {
 
   getCarDoc (id) {
     return `${this.baseUrl}/users/${id}/prepare-download/document`
+  }
+
+  // cars waiting evaluation
+  get getCarsWaiting () {
+    return `${this.baseUrl}/users/cars/waiting-decision`
   }
 
   //  dashboard
