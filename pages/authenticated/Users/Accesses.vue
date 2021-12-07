@@ -10,81 +10,19 @@
         :items="recognitions"
         hide-default-footer
       >
-        <template #[`item.name`]="{ item: { name } }">
-          {{ formatText(name, 15) }}
+        <template #no-data>
+          <h2>Nenhum reconhecimento registrado até o momento</h2>
         </template>
-        <template #[`item.email`]="{ item: { email } }">
-          {{ formatText(email) }}
-        </template>
-        <template #[`item.type`]="{ item: { type } }">
-          {{ $t(`userTypes.${type}`) }}
-        </template>
-        <template #[`item.roles`]="{ item: { roles } }">
-          <div v-for="(role, index) in roles" :key="`role-${index}`">
-            <v-chip small :color="roleColor(role)" class="my-1">
-              {{ role.description }}
-            </v-chip>
-            <br>
-          </div>
-        </template>
-
-        <template #[`item.enabled`]="{ item: { enabled, disableReason } }">
-          <template v-if="enabled">
-            <v-icon color="success" class="mr-2">
-              mdi-circle
-            </v-icon>
+        <template #[`item.grandAccess`]="{ item: { grandAccess } }">
+          <v-chip v-if="grandAccess" color="success">
             Sim
-          </template>
-          <template v-else>
-            <v-tooltip bottom>
-              <template #activator="{ on, attrs }">
-                <v-icon color="error" class="pointer" v-bind="attrs" v-on="on">
-                  mdi-exclamation-thick
-                </v-icon>
-                Não
-              </template>
-              {{ disableReason }}
-            </v-tooltip>
-          </template>
+          </v-chip>
+          <v-chip v-else color="error">
+            Não
+          </v-chip>
         </template>
-        <template #[`item.actions`]="{ item }">
-          <action-button
-            small
-            icon="mdi-pencil"
-            color="warning"
-            tooltip-text="Editar"
-            @click="goTo({ 'name': 'edit-user', params: { 'id': item.id } })"
-          />
-          <action-button
-            small
-            icon="mdi-close"
-            color="error"
-            tooltip-text="Desativar"
-            @click="showDisableModal(item)"
-          />
-          <action-button small icon="mdi-location-enter" color="secondary" tooltip-text="Acessos" />
-          <action-button
-            icon-small
-            small
-            icon="mdi-car"
-            color="info"
-            tooltip-text="Veículos"
-            @click="goTo({ 'name': 'user-cars', params: { 'id': item.id } })"
-          />
-          <action-button
-            v-if="!item.authorisedAccess"
-            small
-            icon="mdi-check"
-            color="success"
-            tooltip-text="Autorizar acesso"
-          />
-          <action-button
-            v-else
-            small
-            icon="mdi-cancel"
-            color="error"
-            tooltip-text="Proibir acesso"
-          />
+        <template #[`item.epochTime`]="{ item: { epochTime } }">
+          {{ formatDate(epochTime) }}
         </template>
       </v-data-table>
       <div class="text-center pt-2">
@@ -132,34 +70,24 @@ export default App.extend({
     headers () {
       return [
         {
-          text: 'Nome',
-          value: 'name',
+          text: 'Autorizado?',
+          value: 'grandAccess',
           sortable: false
         },
         {
-          text: 'E-mail',
-          value: 'email',
+          text: 'Confiança',
+          value: 'confidence',
           sortable: false,
           width: '10%'
         },
         {
-          text: 'Tipo de usuário',
-          value: 'type',
+          text: 'Data do acesso',
+          value: 'epochTime',
           sortable: false
         },
         {
-          text: 'Papéis',
-          value: 'roles',
-          sortable: false
-        },
-        {
-          text: 'Conta ativa?',
-          value: 'enabled',
-          sortable: false
-        },
-        {
-          text: 'Ações',
-          value: 'actions',
+          text: 'Placa',
+          value: 'carPlate',
           sortable: false
         }
       ]
@@ -180,8 +108,8 @@ export default App.extend({
       }
     },
 
-    formatText (text: string, limit: number = 15) {
-      return text.slice(0, limit) + (text.length > limit ? '...' : '')
+    formatDate (epochTime: string) {
+      return this.$dayjs(epochTime).format('DD/MM/YYYY HH:ss')
     },
 
     handlePaginate (currentPage: number) {

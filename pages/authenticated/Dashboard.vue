@@ -83,7 +83,13 @@
           <v-list v-if="workstations.length && !loading">
             <v-list-item v-for="(workstation, index) in workstations" :key="`workstation-${index}`">
               <span class="mr-2">{{ workstation.workstationName }}</span>
-              <span class="mr-2">Acessos: {{ workstation.amountAccess }}</span>
+              <span class="mr-2"> - Acessos: {{ workstation.amountAccess }}</span>
+              <button-default
+                :block="false"
+                small
+                label="Acessar"
+                @click="goTo({ name: 'workstation-recognitions', params: { id: workstation.id } })"
+              />
             </v-list-item>
           </v-list>
           <h2 v-if="!workstations.length && !loading" class="text-center pa-8">
