@@ -70,7 +70,7 @@
       class="py-2 text-center justify-center"
     >
       Feito com
-      <v-icon color="red">
+      <v-icon color="red" :small="isMobile">
         mdi-heart
       </v-icon>
       pelos alunos para a UTFPR
@@ -157,3 +157,11 @@ export default App.extend({
   }
 })
 </script>
+
+<style scoped>
+@media screen and (max-width: 768px) {
+  ::v-deep .v-footer {
+    font-size: .7em;
+  }
+}
+</style>

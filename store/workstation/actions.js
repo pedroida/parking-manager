@@ -12,6 +12,10 @@ export default {
     commit('SET_LAST_RECOGNITION', recognition)
   },
 
+  resetLastRecognitions ({ commit }) {
+    commit('RESET_LAST_RECOGNITIONS')
+  },
+
   async getWorkstations ({ dispatch, commit }) {
     const service = await dispatch('service', WorkstationService, { root: true })
     return await service.getWorkstations(routes.getWorkstations)

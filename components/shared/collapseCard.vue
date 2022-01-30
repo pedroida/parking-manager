@@ -6,7 +6,7 @@
         color="dark"
         text
         class="d-flex justify-space-between"
-        @click="show = !show"
+        @click="toggleShow"
       >
         <div>
           <slot name="header">
@@ -18,7 +18,7 @@
           </slot>
         </div>
 
-        <v-icon>{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        <v-icon v-if="!preventCollapse">{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
       </v-btn>
     </v-card-actions>
 
@@ -54,12 +54,26 @@ export default App.extend({
       type: Boolean,
       required: false,
       default: () => true
+    },
+
+    preventCollapse: {
+      type: Boolean,
+      required: false,
+      default: () => false
     }
   },
 
   data () {
     return {
       show: this.showContent
+    }
+  },
+
+  methods: {
+    toggleShow () {
+      if (!this.preventCollapse) {
+        this.show = !this.show
+      }
     }
   }
 })

@@ -1,5 +1,5 @@
 <template>
-  <collapse-card show-content title="Seus dados" icon="mdi-card-account-details">
+  <collapse-card show-content prevent-collapse title="Seus dados" icon="mdi-card-account-details">
     <v-row>
       <v-col md="8" sm="12">
         <h3>

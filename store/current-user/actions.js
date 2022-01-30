@@ -1,6 +1,10 @@
 import { AuthenticationService, CurrentUserService, routes } from '@@/services'
 
 export default {
+  setLoading ({ commit }, loading) {
+    commit('SET_LOADING', loading)
+  },
+
   async setAuthorization ({ commit }, token) {
     await commit('SET_AUTHORIZATION', token)
   },
@@ -107,20 +111,26 @@ export default {
   },
 
   async profileUpdateAvatar ({ dispatch, commit }, avatar) {
+    dispatch('setLoading', true)
     const service = await dispatch('service', CurrentUserService, { root: true })
     return await service.updateAvatar(routes.updateAvatar, avatar)
       .then((response) => {
         commit('SET_CURRENT_USER', response.data)
         return response
+      }).finally(() => {
+        dispatch('setLoading', false)
       })
   },
 
   async sendDoc ({ dispatch, commit }, payload) {
+    dispatch('setLoading', true)
     const service = await dispatch('service', CurrentUserService, { root: true })
     return await service.sendDoc(routes.sendDoc(payload.carId), payload.document)
       .then((response) => {
         commit('UPDATE_CAR_STATUS_AFTER_POST_DOC', payload.carId)
         return response
+      }).finally(() => {
+        dispatch('setLoading', false)
       })
   }
 }

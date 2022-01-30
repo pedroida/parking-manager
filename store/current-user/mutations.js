@@ -1,4 +1,8 @@
 export default {
+  SET_LOADING: (state, loading) => {
+    state.loading = loading
+  },
+
   REMOVE_ALERT: (state, payload) => {
     state.alerts.splice(state.alerts.indexOf(payload), 1)
   },

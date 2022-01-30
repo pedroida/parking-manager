@@ -1,5 +1,6 @@
 export default {
   SET_WORKSTATION: (state, workstation) => {
+    workstation.lastRecognitions = []
     state.workstation = workstation
   },
   SET_WORKSTATIONS: (state, workstations) => {
@@ -30,5 +31,9 @@ export default {
     }
 
     state.workstation.lastRecognitions.unshift(recognition)
+  },
+
+  RESET_LAST_RECOGNITIONS: (state) => {
+    state.workstation.lastRecognitions = []
   }
 }

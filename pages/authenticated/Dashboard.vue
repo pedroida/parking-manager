@@ -200,5 +200,6 @@ export default App.extend({
 <style scoped>
 .logo {
   width: 300px;
+  max-width: 80%;
 }
 </style>

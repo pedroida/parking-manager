@@ -14,7 +14,7 @@
       </v-col>
     </v-row>
 
-    <v-divider class="mb-5" />
+    <v-divider class="mb-5 mt-5 mt-md-0" />
 
     <slot />
   </div>
@@ -41,3 +41,11 @@ export default App.extend({
   }
 })
 </script>
+
+<style scoped>
+@media screen and (max-width: 768px) {
+  h1 {
+    font-size: 1.5em !important;
+  }
+}
+</style>

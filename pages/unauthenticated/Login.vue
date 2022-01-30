@@ -103,6 +103,6 @@ export default App.extend({
 
 <style lang="scss" scoped>
   ::v-deep .bg-secondary {
-    background-color: #b2b2b2;
+    background-color: #b2b2b2 !important;
   }
 </style>

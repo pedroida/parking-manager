@@ -1,4 +1,5 @@
 export default () => ({
   authorization: null,
-  currentUser: null
+  currentUser: null,
+  loading: false
 })

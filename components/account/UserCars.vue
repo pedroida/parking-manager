@@ -1,60 +1,76 @@
 <template>
-  <v-row>
-    <v-col cols="12">
-      <car-form v-if="!hasMaxCars" v-model="newCar" label="Adicionar veículo" @car-added="carAdded" />
-      <h3 v-else class="warning--text">
-        Limite de veículos atingido
-      </h3>
-    </v-col>
-    <v-col v-if="currentUser.cars.length" cols="12">
-      <div v-for="(car, index) in currentUser.cars" :key="index" class="cars-container mb-2" :class="{'mobile-list': isMobile}">
-        <div>Modelo: {{ car.modelCar }}</div>
-        <div>Placa: {{ car.plateCar }}</div>
-        <div>
-          <button-default v-if="!car.document" small :block="false" label="Enviar documento" @click="upload(car.id)" />
-          <div v-else>
-            <status-chip :car="car" />
+  <div>
+    <v-row>
+      <v-col cols="12">
+        <car-form v-if="!hasMaxCars" v-model="newCar" label="Adicionar veículo" @car-added="carAdded" />
+        <h3 v-else class="warning--text">
+          Limite de veículos atingido
+        </h3>
+      </v-col>
+      <v-col v-if="currentUser.cars.length" cols="12">
+        <card v-for="(car, index) in currentUser.cars" :key="index" hide-title>
+          <div class="cars-container" :class="{'mobile-list': isMobile}">
+            <div>Modelo: {{ car.modelCar }}</div>
+            <div>Placa: {{ car.plateCar }}</div>
+            <div>
+              <button-default
+                v-if="!car.document"
+                small
+                color="info darken-2"
+                :block="false"
+                label="Enviar documento"
+                @click="upload(car.id)"
+              />
+              <div v-else>
+                <status-chip :car="car" />
+              </div>
+            </div>
+            <div>Reconhecimentos: {{ car.numberAccess }}</div>
+            <div>
+              <remove-car :car="car" />
+            </div>
           </div>
-        </div>
-        <div>Reconhecimentos: {{ car.numberAccess }}</div>
-        <div>
-          <remove-car :car="car" />
-        </div>
-      </div>
-    </v-col>
-    <v-col v-else cols="12">
-      <h2 class="text-center">
-        <v-divider class="mb-5" />
-        Você não possui veículos cadastrados
-      </h2>
-    </v-col>
-    <v-col class="d-none">
-      <input
-        ref="uploader"
-        class="d-none"
-        type="file"
-        accept="application/pdf"
-        @change="onFileChanged"
-      >
-    </v-col>
-  </v-row>
+        </card>
+      </v-col>
+      <v-col v-else cols="12">
+        <h2 class="text-center">
+          <v-divider class="mb-5" />
+          Você não possui veículos cadastrados
+        </h2>
+      </v-col>
+      <v-col class="d-none">
+        <input
+          ref="uploader"
+          class="d-none"
+          type="file"
+          accept="application/pdf"
+          @change="onFileChanged"
+        >
+      </v-col>
+    </v-row>
+    <loader :loading="loading" />
+  </div>
 </template>
 
 <script lang="ts">
-import { mapActions } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import App from '~/components/App'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
 import CarForm from '~/components/shared/car/Form.vue'
 import { CarFactory } from '~/entity/factories/CarFactory'
 import RemoveCar from '~/components/shared/car/Remove.vue'
 import StatusChip from '~/components/cars/StatusChip.vue'
+import Card from '~/components/shared/card.vue'
+import Loader from '~/components/shared/loader.vue'
 
 export default App.extend({
   name: 'UserCars',
 
-  components: { StatusChip, RemoveCar, ButtonDefault, CarForm },
+  components: { Loader, Card, StatusChip, RemoveCar, ButtonDefault, CarForm },
 
   computed: {
+    ...mapGetters('current-user', ['loading']),
+
     hasMaxCars (): boolean {
       return this.currentUser.cars.length === 5
     }

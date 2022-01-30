@@ -1,12 +1,9 @@
 <template>
   <v-data-table
     :headers="headers"
-    :items="workstation.lastRecognitions"
+    :items="lastRecognitions"
     hide-default-footer
   >
-    <template #no-data>
-      <h2>Nenhum reconhecimento registrado até o momento</h2>
-    </template>
     <template #[`item.authorize`]="{ item: { authorize } }">
       <v-chip v-if="authorize" color="success">
         Sim
@@ -23,18 +20,29 @@
         Não
       </v-chip>
     </template>
+    <template #no-data>
+      <h2 class="text-center">
+        Nenhum reconhecimento registrado até o momento
+      </h2>
+    </template>
   </v-data-table>
 </template>
 
 <script lang="ts">
 import { mapGetters } from 'vuex'
 import App from '~/components/App'
+import Recognition from '~/entity/Recognition'
 
 export default App.extend({
   name: 'LastRecognitions',
 
   computed: {
     ...mapGetters('workstation', ['workstation']),
+
+    lastRecognitions (): Recognition[] {
+      return this.workstation.lastRecognitions || []
+    },
+
     headers () {
       return [
         {

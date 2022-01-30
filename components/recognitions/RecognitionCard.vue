@@ -14,7 +14,7 @@
         <p>
           Taxa de confiança: {{ recognition.confidence }}%
         </p>
-        <p>
+        <p v-if="recognition.driverName">
           Motorista: {{ recognition.driverName }}
         </p>
       </v-col>
@@ -28,7 +28,7 @@
         </h2>
       </v-col>
       <v-col cols="1" />
-      <v-col v-if="manualWorkstation" cols="12" md="6" class="d-flex justify-start">
+      <v-col v-if="manualWorkstation && recognition.authorize" cols="12" md="6" class="d-flex justify-start">
         <button-default color="primary" label="label.authorise" :block="false" class="px-15 py-5" />
       </v-col>
     </v-row>

@@ -28,6 +28,12 @@
       </span>
     </div>
 
+    <div class="text-center mt-5">
+      <strong>Chave:</strong>
+      <br />
+      {{ workstation.key }}
+    </div>
+
     <div class="d-flex justify-center my-7">
       <strong>{{ $t(`workstationModes.${workstation.mode}`) }}</strong>
     </div>

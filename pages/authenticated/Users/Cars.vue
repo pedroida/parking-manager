@@ -60,7 +60,6 @@
     </h2>
 
     <loader :loading="carLoading" />
-
   </authenticated-container>
 </template>
 

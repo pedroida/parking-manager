@@ -75,7 +75,7 @@ class ApiRoutes {
 
   // recognitions
   get getErrorRecognitions () {
-    return `${this.baseUrl}/all-recognizer?onlyError=true`
+    return `${this.baseUrl}/error-recognizer`
   }
 
   // users

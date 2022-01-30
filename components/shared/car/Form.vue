@@ -2,7 +2,7 @@
   <modal-default :open="carModal" hide-submit :header-title="label" @close="carModal = false">
     <template #activator>
       <button-default
-        :block="false"
+        :block="isMobile"
         :label="label"
         class="mt-3"
         @click="carModal = !carModal"

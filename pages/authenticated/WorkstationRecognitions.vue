@@ -32,6 +32,8 @@ export default App.extend({
 
   created () {
     this.getWorkstation(this.$route.params.id)
+    this.resetLastRecognitions()
+    this.setRecognition(null)
   },
 
   mounted () {
@@ -70,7 +72,13 @@ export default App.extend({
   },
 
   methods: {
-    ...mapActions('workstation', ['listenWebsocket', 'getWorkstation'])
+    ...mapActions('workstation', ['listenWebsocket', 'getWorkstation', 'resetLastRecognitions']),
+    ...mapActions('recognition', ['setRecognition'])
+  },
+
+  beforeDestroy () {
+    this.setRecognition(null)
+    this.resetLastRecognitions()
   }
 })
 </script>
@@ -81,6 +89,6 @@ export default App.extend({
 }
 
 .recognition-card-container {
-  min-height: 15em;
+  min-height: 16em;
 }
 </style>
