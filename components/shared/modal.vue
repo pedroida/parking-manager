@@ -140,7 +140,7 @@ export default App.extend({
 
 .modal-default {
   padding: 16px;
-  max-height: calc(100vh - 68px);
+  max-height: calc(100vh - 168px);
   overflow-y: auto;
   overscroll-behavior-y: contain;
 

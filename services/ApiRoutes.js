@@ -1,6 +1,6 @@
 class ApiRoutes {
   constructor () {
-    this.baseUrl = `${process.env.NUXT_ENV_API_URL || 'http://localhost:8080'}`
+    this.baseUrl = `${process.env.NUXT_ENV_API_URL || 'http://localhost:8080/api'}`
   }
 
   get login () {
@@ -73,9 +73,16 @@ class ApiRoutes {
     return `${this.baseUrl}/all-recognizer`
   }
 
-  // recognitions
   get getErrorRecognitions () {
-    return `${this.baseUrl}/error-recognizer`
+    return `${this.baseUrl}/all-recognizer?onlyError=true`
+  }
+
+  getErrorRecognition (errorId) {
+    return `${this.baseUrl}/error-recognizer/${errorId}`
+  }
+
+  requestApproveAccess (workstationId, recognitionId) {
+    return `${this.baseUrl}/workstations/${workstationId}/approved-access/recognizer/${recognitionId}`
   }
 
   // users

@@ -48,5 +48,29 @@ export default {
       }).finally(() => {
         dispatch('setLoading', false)
       })
+  },
+
+  async getErrorRecognition ({ dispatch, commit }, errorId) {
+    dispatch('setLoading', true)
+    const service = await dispatch('service', RecognitionService, { root: true })
+    return await service.getErrorRecognition(routes.getErrorRecognition(errorId))
+      .then((response) => {
+        commit('SET_ERROR_RECOGNITION', response.data)
+        return response.data
+      }).finally(() => {
+        dispatch('setLoading', false)
+      })
+  },
+
+  async requestApproveAccess ({ dispatch }, payload) {
+    dispatch('setLoading', true)
+    const service = await dispatch('service', RecognitionService, { root: true })
+    return await service.requestApproveAccess(routes.requestApproveAccess(payload.workstationId, payload.recognitionId))
+      .then((response) => {
+        console.log(response)
+        return response.data
+      }).finally(() => {
+        dispatch('setLoading', false)
+      })
   }
 }

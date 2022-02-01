@@ -5,8 +5,6 @@
         :headers="headers"
         :items="errorRecognitions"
         hide-default-footer
-        @update:sort-by="handleSortBy($event, vm)"
-        @update:sort-desc="handleSortDirection($event, vm)"
       >
         <template #[`item.epochTime`]="{ item: { epochTime } }">
           {{ formatDate(epochTime) }}
@@ -22,33 +20,10 @@
         <template #[`item.actions`]="{ item }">
           <action-button
             small
-            icon="mdi-pencil"
-            color="warning"
-            tooltip-text="Editar"
-            @click="goTo({ 'name': 'edit-user', params: { 'id': item.id } })"
-          />
-          <action-button
-            small
-            icon="mdi-close"
-            color="error"
-            tooltip-text="Desativar"
-            @click="showDisableModal(item)"
-          />
-          <action-button small icon="mdi-location-enter" color="secondary" tooltip-text="Acessos" />
-          <action-button icon-small small icon="mdi-car" color="info" tooltip-text="Veículos" />
-          <action-button
-            v-if="!item.authorisedAccess"
-            small
-            icon="mdi-check"
-            color="success"
-            tooltip-text="Autorizar acesso"
-          />
-          <action-button
-            v-else
-            small
-            icon="mdi-cancel"
-            color="error"
-            tooltip-text="Proibir acesso"
+            icon="mdi-magnify"
+            color="info"
+            tooltip-text="Ver erro"
+            @click="showTrace(item)"
           />
         </template>
       </v-data-table>
@@ -65,6 +40,8 @@
       Não há reconhecimentos cadastrados até o momento
     </h2>
 
+    <recognition-trace-modal />
+
     <loader :loading="loading" />
   </div>
 </template>
@@ -75,11 +52,13 @@ import debounce from 'lodash/debounce'
 import App from '~/components/App'
 import ActionButton from '~/components/shared/data-table/ActionButton.vue'
 import Loader from '~/components/shared/loader.vue'
+import RecognitionTraceModal from '~/components/recognitions/RecognitionTraceModal.vue'
+import Recognition from '~/entity/Recognition'
 
 export default App.extend({
   name: 'ErrorRecognitions',
 
-  components: { ActionButton, Loader },
+  components: { RecognitionTraceModal, ActionButton, Loader },
 
   created () {
     this.getErrorRecognitions()
@@ -132,6 +111,11 @@ export default App.extend({
           text: 'Data',
           value: 'epochTime',
           sortable: false
+        },
+        {
+          text: 'Ação',
+          value: 'actions',
+          sortable: false
         }
       ]
     }
@@ -139,6 +123,10 @@ export default App.extend({
 
   methods: {
     ...mapActions('recognition', ['getErrorRecognitions']),
+
+    showTrace (error: Recognition) {
+      this.$emit('show-trace', error.id)
+    },
 
     formatDate (epochTime: string) {
       return this.$dayjs(epochTime).format('DD/MM/YYYY HH:ss')

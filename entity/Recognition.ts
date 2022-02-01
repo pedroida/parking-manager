@@ -12,6 +12,7 @@ export interface IRecognition {
   authorize?: boolean
   modelCar?: string
   userAvatar?: string
+  trace?: string
 }
 
 export default class Recognition {
@@ -28,6 +29,7 @@ export default class Recognition {
   public authorize?: boolean
   public modelCar?: string
   public userAvatar?: string
+  public trace?: string
 
   constructor (props: IRecognition) {
     this.id = props.id
@@ -43,5 +45,6 @@ export default class Recognition {
     this.authorize = props.authorize
     this.modelCar = props.modelCar
     this.userAvatar = props.userAvatar
+    this.trace = props.trace
   }
 }

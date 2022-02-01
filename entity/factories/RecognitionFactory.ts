@@ -13,6 +13,7 @@ export function RecognitionFactory (
   identifier?: boolean,
   authorize?: boolean,
   modelCar?: string,
+  trace?: string,
   userAvatar?: string
 ): Recognition {
   return new Recognition({
@@ -28,6 +29,7 @@ export function RecognitionFactory (
     identifier,
     authorize,
     modelCar,
+    trace,
     userAvatar
   })
 }

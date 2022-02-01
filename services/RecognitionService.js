@@ -25,6 +25,14 @@ export default class Recognition {
     })
   }
 
+  async getErrorRecognition (url) {
+    return await this.httpClient.get(url)
+  }
+
+  async requestApproveAccess (url) {
+    return await this.httpClient.post(url)
+  }
+
   async createWorkstation (url, payload) {
     return await this.httpClient.post(url, payload)
   }

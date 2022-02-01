@@ -8,8 +8,11 @@
         <v-divider vertical />
       </v-col>
       <v-col cols="12" md="6" class="d-flex flex-column justify-center">
-        <p>
+        <p v-if="recognition.plate">
           Placa reconhecida: {{ recognition.plate }}
+        </p>
+        <p v-else>
+          Placa não cadastrada no sistema
         </p>
         <p>
           Taxa de confiança: {{ recognition.confidence }}%
@@ -27,16 +30,15 @@
           {{ $t('label.notAuthorised') }}
         </h2>
       </v-col>
-      <v-col cols="1" />
-      <v-col v-if="manualWorkstation && recognition.authorize" cols="12" md="6" class="d-flex justify-start">
-        <button-default color="primary" label="label.authorise" :block="false" class="px-15 py-5" />
+      <v-col v-if="manualWorkstation && recognition.authorize" cols="12" class="d-flex justify-center">
+        <button-default v-if="showAuthorize" color="primary" label="label.authorise" :block="false" class="px-15 py-5" @click="approve" />
       </v-col>
     </v-row>
   </card>
 </template>
 
 <script lang="ts">
-import { mapGetters } from 'vuex'
+import { mapActions, mapGetters } from 'vuex'
 import App from '~/components/App'
 import Card from '~/components/shared/card.vue'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
@@ -46,12 +48,42 @@ export default App.extend({
 
   components: { ButtonDefault, Card },
 
+  mounted () {
+    this.showAuthorize = true
+  },
+
   computed: {
     ...mapGetters('recognition', ['recognition']),
     ...mapGetters('workstation', ['workstation']),
 
     manualWorkstation () {
       return this.workstation.mode === 'MANUAL'
+    }
+  },
+
+  data () {
+    return {
+      showAuthorize: false
+    }
+  },
+
+  watch: {
+    recognition () {
+      this.showAuthorize = true
+    }
+  },
+
+  methods: {
+    ...mapActions('recognition', ['requestApproveAccess']),
+
+    approve () {
+      this.showAuthorize = false
+      this.requestApproveAccess({
+        workstationId: this.workstation.id,
+        recognitionId: this.recognition.recognizerId
+      }).then(() => {
+        this.pushAlertSuccess('Acesso liberado!')
+      }).catch(() => (this.showAuthorize = true))
     }
   }
 })

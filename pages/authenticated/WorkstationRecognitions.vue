@@ -10,7 +10,7 @@
 
     <div class="mt-15 d-grid recognition-card-container">
       <v-scroll-x-reverse-transition mode="out-in">
-        <recognition-card v-if="recognition && showCard" v-show="showCard" class="col-12 col-md-8 ma-auto w-fit-content" />
+        <recognition-card v-if="recognition && showCard" v-show="showCard" class="col-12 col-md-8 ma-auto w-sm-100 w-60" />
       </v-scroll-x-reverse-transition>
     </div>
 
@@ -84,8 +84,14 @@ export default App.extend({
 </script>
 
 <style scoped>
-.w-fit-content {
-  width: fit-content;
+@media screen and (max-width: 768px) {
+  .w-sm-100 {
+    width: 100%;
+  }
+}
+
+.w-60 {
+  width: 60%;
 }
 
 .recognition-card-container {

@@ -23,5 +23,9 @@ export default {
 
   SET_ERROR_RECOGNITIONS: (state, errorRecognitions) => {
     state.errorRecognitions = errorRecognitions
+  },
+
+  SET_ERROR_RECOGNITION: (state, errorRecognition) => {
+    state.errorRecognition = errorRecognition
   }
 }

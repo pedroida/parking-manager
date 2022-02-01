@@ -5,6 +5,7 @@ export default () => ({
   recognition: null,
   recognitions: [],
   errorRecognitions: [],
+  errorRecognition: null,
   pagination: PaginationFactory(),
   errorPagination: PaginationFactory()
 })
