@@ -1,7 +1,7 @@
 <template>
   <v-dialog
     :value="open"
-    max-width="500px"
+    :max-width="maxWidth"
     transition="dialog-bottom-transition"
     @click:outside="$emit('close')"
   >
@@ -17,7 +17,7 @@
       <div class="rounded-0" :class="[headerColor]">
         <div
           class="modal-default modal-default-header d-flex  align-center"
-          :class="hideClose ? 'justify-end' : 'justify-space-between'"
+          :class="[headerClass, hideClose ? 'justify-end' : 'justify-space-between']"
         >
           <slot name="header">
             <h3 class="text--white">
@@ -92,6 +92,12 @@ export default App.extend({
       default: () => 'primary'
     },
 
+    maxWidth: {
+      type: String,
+      required: false,
+      default: () => '500px'
+    },
+
     hideClose: {
       type: Boolean,
       required: false,
@@ -117,6 +123,12 @@ export default App.extend({
     },
 
     bodyClass: {
+      type: String,
+      required: false,
+      default: () => ''
+    },
+
+    headerClass: {
       type: String,
       required: false,
       default: () => ''
@@ -166,5 +178,9 @@ export default App.extend({
 
 h3 {
   color: white;
+}
+
+.full-width {
+  max-width: 100% !important;
 }
 </style>

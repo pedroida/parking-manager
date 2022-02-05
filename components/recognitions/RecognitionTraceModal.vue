@@ -1,14 +1,36 @@
 <template>
-  <modal-default :open="traceModal" header-title="Dados do erro" hide-submit @close="closeModal">
+  <modal-default
+    :open="traceModal"
+    header-title="Dados do erro"
+    hide-submit
+    @close="closeModal"
+    max-width="100%"
+    body-class="full-width"
+    header-class="full-width"
+  >
     <template #body>
-      <div v-if="errorRecognition">
+      <div v-if="errorRecognition" class="px-5 trace">
+        <p>
+          <strong>Estação:</strong>
+          {{ errorRecognition.workstationName }}
+        </p>
         <p>
           <strong>Erro:</strong>
           {{ errorRecognition.errorMessage }}
         </p>
         <p>
+          <strong>IP de origem:</strong>
+          {{ errorRecognition.originIp }}
+        </p>
+        <p>
+          <strong>Data da ocorrência:</strong>
+          {{ $dayjs(errorRecognition.date).format('DD/MM/YYYY HH:ss') }}
+        </p>
+        <p>
           <strong>Trace:</strong>
-          {{ errorRecognition.trace }}
+          <span style="white-space: pre">
+            {{ errorRecognition.trace }}
+          </span>
         </p>
 
       </div>
@@ -62,5 +84,8 @@ export default App.extend({
 </script>
 
 <style scoped>
-
+.trace {
+  max-width: 100%;
+  overflow-x: auto;
+}
 </style>
