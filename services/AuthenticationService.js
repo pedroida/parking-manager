@@ -11,6 +11,10 @@ export default class Authentication {
     return await this.httpClient.post(url, { email: payload })
   }
 
+  async confirmRequestPassword (url) {
+    return await this.httpClient.get(url)
+  }
+
   async register (url, payload) {
     return await this.httpClient.post(url, payload)
   }

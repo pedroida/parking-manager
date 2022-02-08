@@ -3,7 +3,7 @@
     <input-default v-model="user.name" label="Nome *" :error="getErrorMessage('name')" />
     <student-email-default v-model="user.email" label="E-mail *" :error="getErrorMessage('email')" @is-valid="validateEmail" />
 
-    <password-default v-model="user.password" label="Senha *" :error="getErrorMessage('password')" />
+    <password-default v-model="user.password" label="Senha *" :error="passwordError" />
     <password-default v-model="user.confirmPassword" label="Confirmar senha *" :error="getErrorMessage('confirmPassword')" />
 
     <small class="red--text">* Campos obrigatórios</small>
@@ -27,7 +27,8 @@ export default App.extend({
       type: User
     },
     errors: {
-      type: []
+      type: Array,
+      required: true
     }
   },
 
@@ -46,6 +47,18 @@ export default App.extend({
       set (value: User) {
         this.$emit('input', value)
       }
+    },
+
+    passwordLength () {
+      return !!this.user.password && (String(this.user.password).length >= 8 && String(this.user.password).length <= 16)
+    },
+
+    passwordError () {
+      if (String(this.user.password).length && !this.passwordLength) {
+        return ['A senha deve possuir entre 8 e 16 caracteres']
+      }
+
+      return this.getErrorMessage('password')
     }
   },
 

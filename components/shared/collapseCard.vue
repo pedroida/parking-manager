@@ -18,7 +18,9 @@
           </slot>
         </div>
 
-        <v-icon v-if="!preventCollapse">{{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}</v-icon>
+        <v-icon v-if="!preventCollapse">
+          {{ show ? 'mdi-chevron-up' : 'mdi-chevron-down' }}
+        </v-icon>
       </v-btn>
     </v-card-actions>
 

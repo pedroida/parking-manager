@@ -11,6 +11,10 @@ class ApiRoutes {
     return `${this.baseUrl}/request-renew-pass`
   }
 
+  confirmRequestPassword (token) {
+    return `${this.baseUrl}/request-renew-pass?params=${token}`
+  }
+
   get requestRegister () {
     return `${this.baseUrl}/new-students/registry`
   }

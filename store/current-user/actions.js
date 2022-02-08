@@ -58,6 +58,11 @@ export default {
     return await service.requestPassword(routes.requestPassword, payload)
   },
 
+  async confirmRequestPassword ({ dispatch }, payload) {
+    const service = await dispatch('service', AuthenticationService, { root: true })
+    return await service.confirmRequestPassword(routes.confirmRequestPassword(payload), payload)
+  },
+
   async register ({ dispatch }, payload) {
     const service = await dispatch('service', AuthenticationService, { root: true })
     return await service.register(routes.requestRegister, payload)

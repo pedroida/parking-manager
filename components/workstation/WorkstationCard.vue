@@ -30,7 +30,7 @@
 
     <div class="text-center mt-5">
       <strong>Chave:</strong>
-      <br />
+      <br>
       {{ workstation.key }}
     </div>
 

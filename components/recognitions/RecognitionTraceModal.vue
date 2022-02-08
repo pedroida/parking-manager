@@ -3,10 +3,10 @@
     :open="traceModal"
     header-title="Dados do erro"
     hide-submit
-    @close="closeModal"
     max-width="100%"
     body-class="full-width"
     header-class="full-width"
+    @close="closeModal"
   >
     <template #body>
       <div v-if="errorRecognition" class="px-5 trace">
@@ -32,7 +32,6 @@
             {{ errorRecognition.trace }}
           </span>
         </p>
-
       </div>
     </template>
   </modal-default>

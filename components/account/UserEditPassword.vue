@@ -11,7 +11,7 @@
 
     <template #body>
       <password-default v-model="actualPassword" label="Senha atual" />
-      <password-default v-model="password" label="Senha" />
+      <password-default v-model="password" label="Senha" :error="passwordLengthError" />
       <password-default v-model="confirmPassword" label="Confirmar Senha" :error="confirmPasswordError" />
     </template>
 
@@ -46,7 +46,18 @@ export default App.extend({
   computed: {
     validPassword () {
       return (this.actualPassword && this.password && this.confirmPassword) &&
-        this.password === this.confirmPassword
+        this.password === this.confirmPassword &&
+        this.passwordLength
+    },
+
+    passwordLength () {
+      return String(this.password).length && (String(this.password).length >= 8 && String(this.password).length <= 16)
+    },
+
+    passwordLengthError () {
+      if (!this.passwordLength) {
+        return ['A senha deve possuir entre 8 e 16 caracteres']
+      }
     },
 
     confirmPasswordError () {

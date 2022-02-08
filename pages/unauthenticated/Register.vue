@@ -60,6 +60,7 @@ export default App.extend({
         this.user.email &&
         this.user.password &&
         this.user.confirmPassword &&
+        (String(this.user.password).length >= 8 && String(this.user.password).length <= 16) &&
         (this.user.password === this.user.confirmPassword)
     }
   },

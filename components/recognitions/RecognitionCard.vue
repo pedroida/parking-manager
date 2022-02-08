@@ -31,7 +31,14 @@
         </h2>
       </v-col>
       <v-col v-if="manualWorkstation && recognition.authorize" cols="12" class="d-flex justify-center">
-        <button-default v-if="showAuthorize" color="primary" label="label.authorise" :block="false" class="px-15 py-5" @click="approve" />
+        <button-default
+          v-if="showAuthorize"
+          color="primary"
+          label="label.authorise"
+          :block="false"
+          class="px-15 py-5"
+          @click="approve"
+        />
       </v-col>
     </v-row>
   </card>

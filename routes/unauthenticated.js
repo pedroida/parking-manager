@@ -10,6 +10,11 @@ export default [
     component: 'pages/unauthenticated/ResetPassword.vue'
   },
   {
+    path: '/request-renew-pass',
+    name: 'request-renew-pass',
+    component: 'pages/unauthenticated/RequestRenewPass.vue'
+  },
+  {
     path: '/cadastro',
     name: 'register',
     component: 'pages/unauthenticated/Register.vue'
