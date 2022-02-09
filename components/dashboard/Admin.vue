@@ -101,12 +101,11 @@ import App from '~/components/App'
 import BarChart from '~/components/charts/BarChart.vue'
 import LineChart from '~/components/charts/LineChart.vue'
 import ButtonDefault from '~/components/shared/form/ButtonDefault.vue'
-import AdminDashboard from '~/components/dashboard/Admin.vue'
 
 export default App.extend({
   name: 'AdminDashboard',
 
-  components: { AdminDashboard, ButtonDefault, BarChart, LineChart },
+  components: { ButtonDefault, BarChart, LineChart },
 
   computed: {
     ...mapGetters('dashboard', [

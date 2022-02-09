@@ -13,6 +13,10 @@ export default {
     state.cars = cars
   },
 
+  SET_HAS_CARS_WAITING: (state, hasCarsWaiting) => {
+    state.hasCarsWaiting = hasCarsWaiting
+  },
+
   UPDATE_CAR_STATUS: (state, currentCar) => {
     state.cars = state.cars.map((car) => {
       if (String(car.id) === String(currentCar.id)) {

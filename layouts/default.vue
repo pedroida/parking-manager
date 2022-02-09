@@ -55,7 +55,11 @@
       app
       color="primary"
     >
-      <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+      <div class="app-bar-container">
+        <v-app-bar-nav-icon @click.stop="drawer = !drawer" />
+
+        <cars-waiting-notification v-if="isAdmin" />
+      </div>
     </v-app-bar>
     <v-main>
       <v-container class="h-100">
@@ -80,12 +84,13 @@
 
 <script>
 import { mapActions } from 'vuex'
+import CarsWaitingNotification from '../components/cars/Notification'
 import App from '~/components/App'
 import Alerts from '~/components/layouts/Alerts'
 
 export default App.extend({
 
-  components: { Alerts },
+  components: { CarsWaitingNotification, Alerts },
 
   computed: {
     items () {
@@ -163,5 +168,12 @@ export default App.extend({
   ::v-deep .v-footer {
     font-size: .7em;
   }
+}
+
+.app-bar-container {
+  display: flex;
+  justify-content: space-between;
+  width: 100%;
+  align-items: center;
 }
 </style>

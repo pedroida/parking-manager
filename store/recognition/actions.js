@@ -67,7 +67,6 @@ export default {
     const service = await dispatch('service', RecognitionService, { root: true })
     return await service.requestApproveAccess(routes.requestApproveAccess(payload.workstationId, payload.recognitionId))
       .then((response) => {
-        console.log(response)
         return response.data
       }).finally(() => {
         dispatch('setLoading', false)

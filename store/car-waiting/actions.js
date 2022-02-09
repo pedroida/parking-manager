@@ -1,4 +1,5 @@
 import { CarWaitingService, UserService, routes } from '@@/services'
+import webstomp from 'webstomp-client'
 
 export default {
   setPagination ({ commit }, data) {
@@ -10,6 +11,10 @@ export default {
 
   setLoading ({ commit }, loading) {
     commit('SET_LOADING', loading)
+  },
+
+  setHasCarsWaiting ({ commit }, payload) {
+    commit('SET_HAS_CARS_WAITING', payload)
   },
 
   async getCarsWaiting ({ dispatch, commit, getters }) {
@@ -34,7 +39,7 @@ export default {
       })
   },
 
-  async approveCar ({ dispatch, commit }, carId) {
+  async approveCar ({ dispatch, commit, getters }, carId) {
     dispatch('setLoading', true)
     const service = await dispatch('service', UserService, { root: true })
     return await service.approveCar(routes.approveCar(carId))
@@ -44,12 +49,16 @@ export default {
           status: 'APPROVED'
         })
         return response.data
-      }).finally(() => {
+      })
+      .then(() => {
+        dispatch('setHasCarsWaiting', !!getters.cars.find(car => car.status === 'WAITING'))
+      })
+      .finally(() => {
         dispatch('setLoading', false)
       })
   },
 
-  async reproveCar ({ dispatch, commit }, carId) {
+  async reproveCar ({ dispatch, commit, getters }, carId) {
     dispatch('setLoading', true)
     const service = await dispatch('service', UserService, { root: true })
     return await service.reproveCar(routes.reproveCar(carId))
@@ -59,8 +68,27 @@ export default {
           status: 'REPROVED'
         })
         return response.data
-      }).finally(() => {
+      })
+      .then(() => {
+        dispatch('setHasCarsWaiting', !!getters.cars.find(car => car.status === 'WAITING'))
+      })
+      .finally(() => {
         dispatch('setLoading', false)
       })
+  },
+
+  listenWebsocket ({ rootGetters, dispatch }) {
+    const token = `Bearer ${rootGetters['current-user/authorization']}`
+    const headers = { Authorization: token }
+
+    const socket = new window.SockJS(process.env.STOMP_URL || 'http://localhost:8080/api/ws')
+    const stomp = webstomp.over(socket, {
+      protocols: ['v10.stomp']
+    })
+    stomp.connect(headers, () => {
+      stomp.subscribe('/topic/application/new-registry-car', function () {
+        dispatch('setHasCarsWaiting', true)
+      })
+    })
   }
 }
