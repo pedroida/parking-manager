@@ -25,7 +25,11 @@ export default {
         commit('SET_CARS', response.data.items)
         dispatch('setPagination', response.data)
         return response.data
-      }).finally(() => dispatch('setLoading', false))
+      })
+      .then(() => {
+        dispatch('setHasCarsWaiting', !!getters.cars.find(car => car.status === 'WAITING'))
+      })
+      .finally(() => dispatch('setLoading', false))
   },
 
   async getCarDoc ({ dispatch }, carId) {

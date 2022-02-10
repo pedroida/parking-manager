@@ -1,4 +1,4 @@
-import { merge } from 'lodash'
+import { merge, unionBy } from 'lodash'
 
 export default {
   SET_LOADING: (state, loading) => {
@@ -10,7 +10,7 @@ export default {
   },
 
   SET_CARS: (state, cars) => {
-    state.cars = cars
+    state.cars = unionBy(state.cars, cars, 'id')
   },
 
   SET_HAS_CARS_WAITING: (state, hasCarsWaiting) => {
